@@ -34,5 +34,48 @@ router.post('/', async (req, res) => {
     }
 })
 
+// GET /users/login -- renders a login form
+router.get('/login', (req, res) => {
+    res.render('users/login.ejs', {msg: null})
+})
+// POST /users/login -- authenticates user credentials against database
+router.post('/login', async(req, res) => {
+    try{
+        // look up the user in the db based on their email
+        const foundUser = await db.user.findOne({
+            where: {email: req.body.email}
+        })
+        const msg = 'bad login credentials, you are not authenticated!'
+        // if the user is not found -- display the login form & give them a message
+        if(!foundUser){
+            console.log('email not found on login 🤦🏼‍♀️')
+            res.render('users/login.ejs', {msg})
+            return //do not continue with the function
+        }
+        // otherwise, check provided password against password in database
+        // hash the password from the req.body & compare to the db password
+        if(foundUser.password === req.body.password){
+            // if they match -- send the user a cookie! to log them in
+            res.cookie('userId', foundUser.Id)
+            // TODO: redirect to profile
+            res.redirect('/')
+        } else{
+            // if not -- render the login form with a message
+            res.render('users/login.ejs', {msg})
+        }
+
+    }catch(err){
+        console.log('🔥',err)
+    }
+})
+// GET /users/logout -- clear the cookie to log the user out
+router.get('/logout', (req, res) => {
+    // clear the cookie from storage
+    res.clearCookie('userId')
+    // redirect to root
+    res.redirect('/')
+})
+
+
 
 module.exports = router
