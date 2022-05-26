@@ -49,7 +49,7 @@ app.use(async (req, res, next) => {
     }
     next()
   }catch(err){
-    console.warn(err,'🔥')
+    console.warn('🔥🔥🔥🔥🔥🔥', err)
     // next() //forge ahead in case of error
   }
 })
@@ -57,11 +57,31 @@ app.use(async (req, res, next) => {
 // routes
 app.get('/', (req, res) => {
   // console.log(res.locals)
+  // throw new Error('oooooops💩')
   res.render('index')
 })
 
 //controllers
 app.use('/users', require('./controllers/users'))
+
+// 404 error handlers -- NEEDS TO GO LAST  
+// app.get('/*', (req, res) => {
+//   // render a 404 template
+// })
+
+app.use((req, res, next) => {
+  // render a 404 template
+  res.status(404).render('404.ejs')
+})
+
+// 500 error handler
+// need to have all 4 params
+app.use((error, req, res, next) => {
+  // log the error
+  console.log('🔥🔥🔥🔥🔥🔥🔥🔥', error)
+  // send a 500 error template
+  res.status(500).render('500.ejs')
+})
 
 app.listen(PORT, () => {
   console.log(`server is running on port ${PORT}`);

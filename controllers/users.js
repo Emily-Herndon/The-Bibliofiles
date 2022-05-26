@@ -9,7 +9,7 @@ router.get('/new', (req, res) => {
     res.render('users/new.ejs', {msg: null})
 })
 //  POST /users -- creates a new user & redirects to index
-router.post('/', async (req, res) => {
+router.post('/', async (req, res, next) => {
     try{
         // try to create the user
         // hash password
@@ -18,6 +18,7 @@ router.post('/', async (req, res) => {
             where: {email: req.body.email},
             defaults: {password: hashedPassword}
         })
+        
         // if the user is new
         if (created) {
             // login them in by giving them a cookie
@@ -34,7 +35,7 @@ router.post('/', async (req, res) => {
             res.render('users/new.ejs', {msg: 'email already exists in database 🤦🏼‍♀️'})
         }
     } catch (err){
-        console.log('🔥', err)
+        next(err)
     }
 })
 
@@ -71,7 +72,7 @@ router.post('/login', async(req, res) => {
         }
 
     }catch(err){
-        console.log('🔥',err)
+        next(err)
     }
 })
 // GET /users/logout -- clear the cookie to log the user out
