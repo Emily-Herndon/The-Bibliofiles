@@ -107,10 +107,10 @@ app.use('/books', require('./controllers/books'))
 //   // render a 404 template
 // })
 
-app.use((req, res, next) => {
-  // render a 404 template
-  res.status(404).render('404.ejs')
-})
+// app.use((req, res, next) => {
+//   // render a 404 template
+//   res.status(404).render('404.ejs')
+// })
 
 // 500 error handler
 // need to have all 4 params
