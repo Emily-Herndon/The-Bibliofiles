@@ -1,5 +1,12 @@
-Detailed book info here
-
+<img src ="https://covers.openlibrary.org/b/id/<%=details.covers[0]%>-L.jpg" />
 <h1><%= details.title %> </h1>
 <h2><%= author.name %> </h2>
 <p><%= details.description %> </p>
+<ul>Links:
+    <% details.links.forEach(link => { %>
+        <li>
+            <a href="<%= link.url%>"><%= link.title %> </a>
+        </li>
+   <% }) %> 
+</ul>
+<!-- <a href="/books/results">Back</a> -->
