@@ -11,6 +11,7 @@ router.get('/new', (req, res) => {
 //  POST /users -- creates a new user & redirects to profile
 router.post('/new', async (req, res, next) => {
     try{
+        console.log(req.body)
         // try to create the user
         // hash password
         const hashedPassword = bcrypt.hashSync(req.body.password, 12)
