@@ -3,6 +3,8 @@ const router = express.Router()
 const db = require('../models')
 const cryptoJS = require('crypto-js')
 const bcrypt = require('bcryptjs')
+const methodOverride = require('method-override')
+const { user } = require('pg/lib/defaults')
 
 //  GET /user/new -- renders a form to create a new user
 router.get('/new', (req, res) => {
@@ -48,17 +50,27 @@ router.get('/logout', (req, res) => {
     res.redirect('/')
 })
 
-router.get('/profile', (req, res) => {
+router.get('/profile', async (req, res) => {
     //check if user is authorized
     if (!res.locals.user){
         //if the user is not authorized, ask them to log in
         res.render('user/login.ejs', {msg: 'Please log in to continue'})
         return //end the route here
     }
-
-    res.render('users/profile.ejs', {user: res.locals.user})
+    const savedBooks = await db.book.findAll()
+    res.render('users/profile.ejs', {user: res.locals.user, savedBooks})
 })
 
+// POST -- create new saved book from details pages
+router.post('/profile', async (req, res) => {
+    await db.book.create({
+        title: req.body.title,
+        author: req.body. author,
+        book_cover_url: req.body.books_cover_url,
+        userId: req.body.userId
+    })
+    res.redirect('/users/profile')
+})
 
 
 module.exports = router

@@ -12,6 +12,7 @@
   <h3>Your Saved Books</h3>
 
   <ul>
-    <%  %> 
-    <li></li>
+    <% savedBooks.forEach(book => { %> 
+      <li><%= book.title %> </li>
+      <% }) %> 
   </ul>
