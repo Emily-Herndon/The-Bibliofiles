@@ -4,20 +4,23 @@ username: VARCHAR(255)
 email: VARCHAR(255)
 password: VARCHAR(255)
 
-table: savedBooks
+table: books
 
-userIdFK: INTEGER
+userId(FK): INTEGER
 Title: VARCHAR(255)
 Author: VARCHAR(255)
 Subject/genre: VARCHAR(255)
 Book Cover url: VARCHAR(255)
-Read: boolean
 
 table: tags
 
-userIdFK: INTEGER
-bookId: INTEGER
+userId(FK): INTEGER
+Read: boolean
 Tag: string
+
+join table: tagsbooks
+userId(FK):INTEGER
+bookId(FK):INTEGER
 
 ---
 #### Stretch
