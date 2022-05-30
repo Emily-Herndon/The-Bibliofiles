@@ -31,27 +31,27 @@ app.use((req, res, next) => {
 })
 
 // auth middleware
-// app.use(async (req, res, next) => {
-//   try{
-//     // if there is a cookie--
-//     if(req.cookies.userId){
-//       // try to find that user in the database
-//       const userId = req.cookies.userId
-//       const decryptedId = cryptoJS.AES.decrypt(userId, process.env.ENC_KEY).toString(cryptoJS.enc.Utf8)
-//       const user = await db.user.findByPk(decryptedId)
-//       // mount the found user on the res.locals so that later routes can access the logged in user
-//       // any value to the res.locals is available to the layout.ejs
-//       res.locals.user = user
-//     }else{
-//       // the user is explicitly not logged in
-//       res.locals.user = null
-//     }
-//     next()
-//   }catch(err){
-//     console.warn('🔥🔥🔥🔥🔥🔥', err)
-//     // next() //forge ahead in case of error
-//   }
-// })
+app.use(async (req, res, next) => {
+  try{
+    // if there is a cookie--
+    if(req.cookies.userId){
+      // try to find that user in the database
+      const userId = req.cookies.userId
+      const decryptedId = cryptoJS.AES.decrypt(userId, process.env.ENC_KEY).toString(cryptoJS.enc.Utf8)
+      const user = await db.user.findByPk(decryptedId)
+      // mount the found user on the res.locals so that later routes can access the logged in user
+      // any value to the res.locals is available to the layout.ejs
+      res.locals.user = user
+    }else{
+      // the user is explicitly not logged in
+      res.locals.user = null
+    }
+    next()
+  }catch(err){
+    console.warn('🔥🔥🔥🔥🔥🔥', err)
+    // next() //forge ahead in case of error
+  }
+})
 
 // routes
 // app.get('/', (req, res) => {

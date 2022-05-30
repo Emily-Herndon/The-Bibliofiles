@@ -16,9 +16,8 @@ router.post('/new', async (req, res, next) => {
         const hashedPassword = bcrypt.hashSync(req.body.password, 12)
         const [user, created] = await db.user.findOrCreate({
             where: {email: req.body.email},
-            defaults: {password: hashedPassword}
+            defaults: {username: req.body.username, password: hashedPassword}
         })
-        
         // if the user is new
         if (created) {
             // login them in by giving them a cookie
@@ -26,7 +25,7 @@ router.post('/new', async (req, res, next) => {
             // encrypt id
             const encryptedId = cryptoJS.AES.encrypt(user.id.toString(), process.env.ENC_KEY).toString()
             res.cookie('userId', encryptedId)
-            // redirect to homepage (in future redirect elsewhere like profile)
+            // redirect to profile
             res.redirect('/users/profile')
         }else {
         // if the user was not created
@@ -35,7 +34,7 @@ router.post('/new', async (req, res, next) => {
             res.render('users/new.ejs', {msg: 'Email already in database. Please login!'})
         }
     } catch (err){
-        next(err)
+        console.warn('🔥🔥🔥🔥🔥🔥',err)
     }
 })
 
@@ -49,12 +48,12 @@ router.get('/logout', (req, res) => {
 })
 
 router.get('/profile', (req, res) => {
-    // check if user is authorized
-    // if (!res.locals.user){
-        // iff the ser is not authorized, ask them to log in
-        // res.render('user/login.ejs', {msg: 'Please log in to continue'})
-        // return //end the route here
-    // }
+    //check if user is authorized
+    if (!res.locals.user){
+        //if the user is not authorized, ask them to log in
+        res.render('user/login.ejs', {msg: 'Please log in to continue'})
+        return //end the route here
+    }
 
     res.render('users/profile.ejs') //, {user: res.locals.user})
 })
