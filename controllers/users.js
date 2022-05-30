@@ -56,7 +56,7 @@ router.get('/profile', (req, res) => {
         return //end the route here
     }
 
-    res.render('users/profile.ejs') //, {user: res.locals.user})
+    res.render('users/profile.ejs', {user: res.locals.user})
 })
 
 

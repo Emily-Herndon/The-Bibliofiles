@@ -42,9 +42,9 @@ router.get('/details/works/:id', async (req, res) => {
 })
 
 // PUT -- allows user to update tags on saved books
-// router.put('/details', async (req,res) => {
-//     res.send('tag all the books')
-// })
+router.put('/details/works.:id', async (req,res) => {
+    
+})
 
 
 // // DELETE -- allows user to delete a book from their saved books
