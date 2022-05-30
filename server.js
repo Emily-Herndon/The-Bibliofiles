@@ -65,8 +65,9 @@ app.get('/', (req, res) => {
   res.render('index.ejs', {msg: null})
 })
 // POST / -- authenticates user credentials against database
-app.post('/', async(req, res) => {
+app.post('/', async(req, res, next) => {
   try{
+    console.log('⌨️📧💻',req.body.email)
       // look up the user in the db based on their email
       const foundUser = await db.user.findOne({
           where: {email: req.body.email}
