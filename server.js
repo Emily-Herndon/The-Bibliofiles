@@ -13,11 +13,13 @@ const PORT = process.env.PORT || 3000
 const app = express()
 app.set('view engine', 'ejs')
 
+
 // middlewares
 const rowdyRes = rowdy.begin(app)
 app.use(require('express-ejs-layouts'))
 app.use(express.urlencoded({ extended: false }))
 app.use(cookieParser())
+app.use(methodOverride('_method'))
 
 // DIY middleware
 // happens on every request

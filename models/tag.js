@@ -18,7 +18,7 @@ module.exports = (sequelize, DataTypes) => {
   tag.init({
     userId: DataTypes.INTEGER,
     read: DataTypes.BOOLEAN,
-    tag: DataTypes.STRING
+    title: DataTypes.STRING
   }, {
     sequelize,
     modelName: 'tag',

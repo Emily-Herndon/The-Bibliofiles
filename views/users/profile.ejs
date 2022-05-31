@@ -13,6 +13,10 @@
 
   <ul>
     <% savedBooks.forEach(book => { %> 
-      <li><%= book.title %> </li>
+      <li><%= book.title %> 
+        <form method="POST" action="/users/profile/?_method=DELETE">
+          <button type="submit" class="btn btn-danger">Delete</button>
+        </form>
+      </li>
       <% }) %> 
   </ul>

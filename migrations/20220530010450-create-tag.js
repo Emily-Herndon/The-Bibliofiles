@@ -14,7 +14,7 @@ module.exports = {
       read: {
         type: Sequelize.BOOLEAN
       },
-      tag: {
+      title: {
         type: Sequelize.STRING
       },
       createdAt: {

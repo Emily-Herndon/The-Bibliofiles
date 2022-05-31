@@ -11,6 +11,12 @@ const axios =require('axios')
 //GET -- pulls the api and renders search results
 router.get('/results', async (req, res) => {
     try{
+           //check if user is authorized
+        if (!res.locals.user){
+            //if the user is not authorized, ask them to log in
+            res.render('user/login.ejs', {msg: 'Please log in to continue'})
+            return //end the route here
+        }
         const url = `https://openlibrary.org/search.json?q=${req.query.bookSearch}`
         const search = await axios.get(url)
         const results= search.data.docs
@@ -52,10 +58,7 @@ router.put('/details/works.:id', async (req,res) => {
 })
 
 
-// // DELETE -- allows user to delete a book from their saved books
-// router.delete('/details', async (req,res) => {
-//     res.send('no mo books')
-// })
+
 
 
 

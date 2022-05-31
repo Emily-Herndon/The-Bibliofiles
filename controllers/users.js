@@ -51,26 +51,57 @@ router.get('/logout', (req, res) => {
 })
 
 router.get('/profile', async (req, res) => {
-    //check if user is authorized
-    if (!res.locals.user){
-        //if the user is not authorized, ask them to log in
-        res.render('user/login.ejs', {msg: 'Please log in to continue'})
-        return //end the route here
+    try{
+        //check if user is authorized
+        if (!res.locals.user){
+            //if the user is not authorized, ask them to log in
+            res.render('user/login.ejs', {msg: 'Please log in to continue'})
+            return //end the route here
+        }
+        const savedBooks = await db.book.findAll()
+        res.render('users/profile.ejs', {user: res.locals.user, savedBooks})
+    }catch(err){
+        console.warn('🔥🔥🔥🔥🔥🔥',err)
     }
-    const savedBooks = await db.book.findAll()
-    res.render('users/profile.ejs', {user: res.locals.user, savedBooks})
 })
 
 // POST -- create new saved book from details pages
 router.post('/profile', async (req, res) => {
-    await db.book.create({
-        title: req.body.title,
-        author: req.body. author,
-        book_cover_url: req.body.books_cover_url,
-        userId: req.body.userId
-    })
-    res.redirect('/users/profile')
+    try{
+       //check if user is authorized
+       if (!res.locals.user){
+        //if the user is not authorized, ask them to log in
+        res.render('user/login.ejs', {msg: 'Please log in to continue'})
+        return //end the route here
+    }
+        await db.book.findOrCreate({
+            where:{book_cover_url: req.body.books_cover_url },
+            defaults: {
+            title: req.body.title,
+            author: req.body. author,
+            userId: req.body.userId
+            }
+        })
+        res.redirect('/users/profile')
+    }catch(err){
+        console.warn('🔥🔥🔥🔥🔥🔥',err)
+    }
 })
 
+// DELETE -- allows user to delete a book from their saved books
+router.delete('/profile', async (req,res) => {
+    try{
+        console.log(req.params.books_cover_url)
+        const bookNoMo = await db.book.findOne({
+            where:{
+                id: req.params.id
+            }
+        })
+        await bookNoMo.destroy()
+        res.redirect('/profile')
+    } catch(err) {
+        console.warn('🔥🔥🔥🔥🔥🔥',err)
+    }
+})
 
 module.exports = router
