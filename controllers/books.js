@@ -55,14 +55,20 @@ router.get('/details/works/:id', async (req, res) => {
                 userId: res.locals.user.dataValues.id
             }
         })
-        res.render('books/details.ejs', {details, author:authorDeets.data, user:res.locals.user, savedBook})
+       
+        const tags = await db.tag.findAll({
+            where:{
+                userId: res.locals.user.dataValues.id
+            }
+        })
+        res.render('books/details.ejs', {details, author:authorDeets.data, user:res.locals.user, savedBook, tags})
     }catch(err){
         console.warn('🔥🔥🔥🔥🔥🔥', err)
     }
 })
 
-// PUT -- allows user to update tags on saved books
-router.put('/details/works/:id', async (req,res) => {
+// POST -- allows user to create and add tags to saved books
+router.post('/details/works/:id', async (req,res) => {
     try{
         const [foundBook, found] = await db.book.findByPk(req.params.id)
         const [foundOrCreatedTag, createdTag] = await db.tag.findOrCreate({

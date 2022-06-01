@@ -24,11 +24,12 @@
     <button type="submit">Save this book!</button>
 </form>
 <% } else{ %> 
-<form method="POST" action="/users/profile/?_method=PUT">
-    <input hidden value="<%= details.key %>" name="bookid"/>
-    <input hidden value="<%= user.id %> " name="userId"/>
-    <input type="text" name="title"/>
-    <button type="submit">Edit Tags!</button>
-</form>
-<% } %> 
+    <form method="POST" action="/users/profile">
+        <input hidden value="<%= details.key %>" name="bookid"/>
+        <input hidden value="<%= user.id %> " name="userId"/>
+        <input type="text" name="title"/>
+        <button type="submit">Add Tags!</button>
+    </form>
+
+<% } %>
 <!-- <a href="/books/results">Back</a> -->

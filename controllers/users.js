@@ -75,7 +75,7 @@ router.post('/profile', async (req, res) => {
         return //end the route here
     }
         await db.book.findOrCreate({
-            where:{bookid: req.body.id },
+            where:{bookid: req.body.bookid },
             defaults: {
             title: req.body.title,
             author: req.body.author,
@@ -95,7 +95,8 @@ router.delete('/profile', async (req,res) => {
         console.log(req.params.books_cover_url)
         const bookNoMo = await db.book.findOne({
             where:{
-                bookid: req.params.id
+                bookid: req.params.id,
+                // userId: req.params.userId
             }
         })
         await bookNoMo.destroy()
