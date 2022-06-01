@@ -59,7 +59,20 @@ router.get('/profile', async (req, res) => {
             return //end the route here
         }
         const savedBooks = await db.book.findAll()
-        res.render('users/profile.ejs', {user: res.locals.user, savedBooks})
+        const tags = await db.tag.findAll({
+            where:{
+                userId: res.locals.user.dataValues.id
+            },
+            include: [db.book]
+        })
+        savedBooks.forEach(book => {
+            const relevantTags = tags.filter((tag)=> {
+                return tag.dataValues.books.some((taggedbook)=>{
+                    return taggedbook.dataValues.bookid === book.key
+                })
+            })
+        })
+        res.render('users/profile.ejs', {user: res.locals.user, savedBooks, tags})
     }catch(err){
         console.warn('🔥🔥🔥🔥🔥🔥',err)
     }
