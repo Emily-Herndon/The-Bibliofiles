@@ -14,14 +14,21 @@
         </li>
    <% }) %> 
 </ul>
+<% if(!savedBook){ %> 
 <form method="POST" action="/users/profile">
+    <input hidden value="<%= details.key %>" name="bookid"/>
     <input hidden value="<%= details.title %>" name="title"/>
     <input hidden value="<%= author.name %>" name="author"/>
     <input hidden value="https://covers.openlibrary.org/b/id/<%=details.covers[0]%>-L.jpg" name="books_cover_url"/>
     <input hidden value="<%= user.id %> " name="userId"/>
     <button type="submit">Save this book!</button>
 </form>
-
-
-
+<% } else{ %> 
+<form method="POST" action="/users/profile/?_method=PUT">
+    <input hidden value="<%= details.key %>" name="bookid"/>
+    <input hidden value="<%= user.id %> " name="userId"/>
+    <input type="text" name="title"/>
+    <button type="submit">Edit Tags!</button>
+</form>
+<% } %> 
 <!-- <a href="/books/results">Back</a> -->

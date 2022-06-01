@@ -13,9 +13,10 @@
 
   <ul>
     <% savedBooks.forEach(book => { %> 
-      <li><%= book.title %> 
+      <li> <a href="/books/details<%= book.bookid %>"> <%= book.title %> </a>
         <form method="POST" action="/users/profile/?_method=DELETE">
-          <button type="submit" class="btn btn-danger">Delete</button>
+          <input hidden value="<%= book.id %>" name="id"/>
+          <button type="submit">Delete</button>
         </form>
       </li>
       <% }) %> 

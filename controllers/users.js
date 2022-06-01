@@ -75,11 +75,12 @@ router.post('/profile', async (req, res) => {
         return //end the route here
     }
         await db.book.findOrCreate({
-            where:{book_cover_url: req.body.books_cover_url },
+            where:{bookid: req.body.id },
             defaults: {
             title: req.body.title,
-            author: req.body. author,
-            userId: req.body.userId
+            author: req.body.author,
+            userId: req.body.userId,
+            book_cover_url: req.body.books_cover_url
             }
         })
         res.redirect('/users/profile')
@@ -94,7 +95,7 @@ router.delete('/profile', async (req,res) => {
         console.log(req.params.books_cover_url)
         const bookNoMo = await db.book.findOne({
             where:{
-                id: req.params.id
+                bookid: req.params.id
             }
         })
         await bookNoMo.destroy()

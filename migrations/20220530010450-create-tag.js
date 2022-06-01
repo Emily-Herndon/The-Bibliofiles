@@ -11,9 +11,6 @@ module.exports = {
       userId: {
         type: Sequelize.INTEGER
       },
-      read: {
-        type: Sequelize.BOOLEAN
-      },
       title: {
         type: Sequelize.STRING
       },
