@@ -1,25 +1,37 @@
-<img src ="https://covers.openlibrary.org/b/id/<%=details.covers[0]%>-L.jpg" />
+<% if(!details.covers){ %> 
+    <p>No Cover Image Available</p>
+<% }else{ %> 
+        <img src ="https://covers.openlibrary.org/b/id/<%=details.covers[0]%>-L.jpg" />
+<% } %>
 <h1><%= details.title %> </h1>
 <h2><%= author.name %> </h2>
 
 <% if(typeof(details.description) === "string"){ %> 
     <p><%= details.description %> </p>
-<% }else{ %> 
+<% }else if(typeof(details.description) === 'object'){ %> 
         <p><%= details.description.value %> </p>
+<% }else{ %> 
+    <p>No Description Available</p>
 <% } %> 
-<ul>Links:
-    <% details.links.forEach(link => { %>
-        <li>
-            <a href="<%= link.url%>"><%= link.title %> </a>
-        </li>
-   <% }) %> 
-</ul>
+<% if(!details.links){ %> 
+<% }else{ %> 
+    <ul>Links:
+        <% details.links.forEach(link => { %>
+            <li>
+                <a href="<%= link.url%>"><%= link.title %> </a>
+            </li>
+    <% }) %> 
+    </ul>
+<% } %> 
 <% if(!savedBook){ %> 
 <form method="POST" action="/users/profile">
     <input hidden value="<%= details.key %>" name="bookid"/>
     <input hidden value="<%= details.title %>" name="title"/>
     <input hidden value="<%= author.name %>" name="author"/>
+    <% if(!details.covers){ %> 
+    <% }else{ %> 
     <input hidden value="https://covers.openlibrary.org/b/id/<%=details.covers[0]%>-L.jpg" name="books_cover_url"/>
+    <% } %>
     <input hidden value="<%= user.id %> " name="userId"/>
     <button type="submit">Save this book!</button>
 </form>

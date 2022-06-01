@@ -16,9 +16,10 @@ router.get('/results', async (req, res) => {
            //check if user is authorized
         if (!res.locals.user){
             //if the user is not authorized, ask them to log in
-            res.render('user/login.ejs', {msg: 'Please log in to continue'})
+            res.render('user/index.ejs', {msg: 'Please log in to continue'})
             return //end the route here
         }
+        // 
         const url = `https://openlibrary.org/search.json?q=${req.query.bookSearch}`
         const search = await axios.get(url)
         const results= search.data.docs
@@ -41,7 +42,7 @@ router.get('/details/works/:id', async (req, res) => {
     try{
         if (!res.locals.user){
             //if the user is not authorized, ask them to log in
-            res.render('user/login.ejs', {msg: 'Please log in to continue'})
+            res.render('user/index.ejs', {msg: 'Please log in to continue'})
             return //end the route here
         }
         
@@ -81,6 +82,11 @@ router.get('/details/works/:id', async (req, res) => {
 // POST -- allows user to create and add tags to saved books
 router.post('/details', async (req,res) => {
     try{
+        if (!res.locals.user){
+            //if the user is not authorized, ask them to log in
+            res.render('user/index.ejs', {msg: 'Please log in to continue'})
+            return //end the route here
+        }
         // console.log(req.body.bookId,'😭😭😭')
         const foundBook = await db.book.findByPk(req.body.bookId)
         const [foundOrCreatedTag, createdTag] = await db.tag.findOrCreate({
@@ -101,6 +107,11 @@ router.post('/details', async (req,res) => {
 // PUT -- edit tags on a book
 router.put('/details', async (req,res) => {
     try{
+        if (!res.locals.user){
+            //if the user is not authorized, ask them to log in
+            res.render('user/index.ejs', {msg: 'Please log in to continue'})
+            return //end the route here
+        }
         // console.log(req.body,'😭😭😭')
         const foundBook = await db.book.findByPk(req.body.bookId)
         const [foundOrCreatedTag, createdTag] = await db.tag.findOrCreate({
@@ -121,11 +132,15 @@ router.put('/details', async (req,res) => {
 //DELETE -- delete tags from books
 router.delete('/details', async (req,res) => {
     try{
+        if (!res.locals.user){
+            //if the user is not authorized, ask them to log in
+            res.render('user/index.ejs', {msg: 'Please log in to continue'})
+            return //end the route here
+        }
         // console.log(req.body,'😭😭😭')
         const foundBook = await db.book.findByPk(req.body.bookId)
         const foundTag = await db.tag.findByPk(req.body.tagId)
         foundBook.removeTag(foundTag)
-        // const savedBooks = await db.book.findAll()
         res.redirect(`/books/details${req.body.bookKey}`)
         // console.log(foundOrCreatedTag)
     }catch(err){

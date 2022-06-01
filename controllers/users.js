@@ -55,7 +55,7 @@ router.get('/profile', async (req, res) => {
         //check if user is authorized
         if (!res.locals.user){
             //if the user is not authorized, ask them to log in
-            res.render('user/login.ejs', {msg: 'Please log in to continue'})
+            res.render('user/index.ejs', {msg: 'Please log in to continue'})
             return //end the route here
         }
         const savedBooks = await db.book.findAll({
@@ -64,20 +64,7 @@ router.get('/profile', async (req, res) => {
             },
             include:db.tag
         })
-        console.log(savedBooks)
-        // const tags = await db.tag.findAll({
-        //     where:{
-        //         userId: res.locals.user.dataValues.id
-        //     },
-        //     include: [db.book]
-        // })
-        // savedBooks.forEach(book => {
-        //     const relevantTags = tags.filter((tag)=> {
-        //         return tag.dataValues.books.some((taggedbook)=>{
-        //             return taggedbook.dataValues.bookid === book.key
-        //         })
-        //     })
-        // })
+        // console.log(savedBooks)
         res.render('users/profile.ejs', {user: res.locals.user, savedBooks})
     }catch(err){
         console.warn('🔥🔥🔥🔥🔥🔥',err)
@@ -90,7 +77,7 @@ router.post('/profile', async (req, res) => {
        //check if user is authorized
        if (!res.locals.user){
         //if the user is not authorized, ask them to log in
-        res.render('user/login.ejs', {msg: 'Please log in to continue'})
+        res.render('user/index.ejs', {msg: 'Please log in to continue'})
         return //end the route here
     }
         await db.book.findOrCreate({
@@ -111,6 +98,11 @@ router.post('/profile', async (req, res) => {
 // DELETE -- allows user to delete a book from their saved books
 router.delete('/profile', async (req,res) => {
     try{
+        if (!res.locals.user){
+            //if the user is not authorized, ask them to log in
+            res.render('user/index.ejs', {msg: 'Please log in to continue'})
+            return //end the route here
+        }
         console.log("😭😭😭😭😭😭😭😭😭",req.body.id)
         const bookNoMo = await db.book.findOne({
             where:{
