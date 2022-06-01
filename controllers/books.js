@@ -22,6 +22,9 @@ router.get('/results', async (req, res) => {
         const url = `https://openlibrary.org/search.json?q=${req.query.bookSearch}`
         const search = await axios.get(url)
         const results= search.data.docs
+        // const results = allResults.filter((book => {
+        //     return book.has_fulltext === true
+        // }))
         // console.log(results)
         res.render('books/results.ejs', {results})
 
@@ -67,8 +70,8 @@ router.get('/details/works/:id', async (req, res) => {
                 return book.dataValues.bookid === details.key
             })
         })
-        console.log(relevantTags)
-        res.render('books/details.ejs', {details, author:authorDeets.data, user:res.locals.user, savedBook, relevantTags})
+        // console.log(relevantTags)
+        res.render('books/details.ejs', {details, author:authorDeets.data, user:res.locals.user, savedBook, relevantTags, tags})
         
     }catch(err){
         console.warn('🔥🔥🔥🔥🔥🔥', err)
@@ -78,7 +81,7 @@ router.get('/details/works/:id', async (req, res) => {
 // POST -- allows user to create and add tags to saved books
 router.post('/details', async (req,res) => {
     try{
-        console.log(req.body.bookId,'😭😭😭')
+        // console.log(req.body.bookId,'😭😭😭')
         const foundBook = await db.book.findByPk(req.body.bookId)
         const [foundOrCreatedTag, createdTag] = await db.tag.findOrCreate({
             where:{
@@ -89,22 +92,46 @@ router.post('/details', async (req,res) => {
         foundBook.addTag(foundOrCreatedTag)
         // const savedBooks = await db.book.findAll()
         res.redirect(`/books/details${req.body.bookKey}`)
-        console.log(foundOrCreatedTag)
+        // console.log(foundOrCreatedTag)
     }catch(err){
         console.warn('🔥🔥🔥🔥🔥🔥', err)
     }
 })
 
+// PUT -- edit tags on a book
+router.put('/details', async (req,res) => {
+    try{
+        // console.log(req.body,'😭😭😭')
+        const foundBook = await db.book.findByPk(req.body.bookId)
+        const [foundOrCreatedTag, createdTag] = await db.tag.findOrCreate({
+            where:{
+                userId: res.locals.user.dataValues.id,
+                title: req.body.title
+            }
+        })
+        foundBook.addTag(foundOrCreatedTag)
+        // const savedBooks = await db.book.findAll()
+        res.redirect(`/books/details${req.body.bookKey}`)
+        // console.log(foundOrCreatedTag)
+    }catch(err){
+        console.warn('🔥🔥🔥🔥🔥🔥', err)
+    }
+})
 
-
-
-
-
-
-
-
-
-
+//DELETE -- delete tags from books
+router.delete('/details', async (req,res) => {
+    try{
+        // console.log(req.body,'😭😭😭')
+        const foundBook = await db.book.findByPk(req.body.bookId)
+        const foundTag = await db.tag.findByPk(req.body.tagId)
+        foundBook.removeTag(foundTag)
+        // const savedBooks = await db.book.findAll()
+        res.redirect(`/books/details${req.body.bookKey}`)
+        // console.log(foundOrCreatedTag)
+    }catch(err){
+        console.warn('🔥🔥🔥🔥🔥🔥', err)
+    }
+})
 
 
 module.exports = router

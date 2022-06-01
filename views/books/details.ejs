@@ -26,14 +26,36 @@
 <% } else{ %> 
     <ul>Tags:
         <% relevantTags.forEach(tag =>{ %> 
-            <li><%= tag.title %></li>
+            <li>
+                <%= tag.title %>
+                <form method="POST" action="/books/details/?_method=DELETE">
+                    <input hidden value="<%= details.key %>" name="bookKey"/>
+                    <input hidden value="<%= savedBook.id %>" name="bookId"/>
+                    <input hidden value="<%= user.id %> " name="userId"/>
+                    <input hidden value="<%= tag.id %> " name="tagId"/>
+                    <button type="submit">Remove Tag</button>
+                  </form>
+            </li>
         <% }) %> 
     </ul>
+    <form method="POST" action="/books/details/?_method=PUT">
+        <input hidden value="<%= details.key %>" name="bookKey"/>
+        <input hidden value="<%= savedBook.id %>" name="bookId"/>
+        <input hidden value="<%= user.id %> " name="userId"/>
+        <label for="editTags">Choose a tag:</label>
+        <select id="editTags" name="title">
+            <% tags.forEach(tag=>{ %> 
+                <option name="title" value="<%=tag.title%>"><%=tag.title%></option>
+            <% }) %> 
+        </select>
+        <button type="submit">EditTags!</button>
+    </form>
     <form method="POST" action="/books/details">
         <input hidden value="<%= details.key %>" name="bookKey"/>
         <input hidden value="<%= savedBook.id %>" name="bookId"/>
         <input hidden value="<%= user.id %> " name="userId"/>
-        <input type="text" name="title"/>
+        <label for="addTag">Make a New Tag</label>
+        <input id ="addTag" type="text" name="title"/>
         <button type="submit">Add Tags!</button>
     </form>
 

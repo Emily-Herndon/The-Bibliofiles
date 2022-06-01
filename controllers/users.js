@@ -58,21 +58,27 @@ router.get('/profile', async (req, res) => {
             res.render('user/login.ejs', {msg: 'Please log in to continue'})
             return //end the route here
         }
-        const savedBooks = await db.book.findAll()
-        const tags = await db.tag.findAll({
+        const savedBooks = await db.book.findAll({
             where:{
                 userId: res.locals.user.dataValues.id
             },
-            include: [db.book]
+            include:db.tag
         })
-        savedBooks.forEach(book => {
-            const relevantTags = tags.filter((tag)=> {
-                return tag.dataValues.books.some((taggedbook)=>{
-                    return taggedbook.dataValues.bookid === book.key
-                })
-            })
-        })
-        res.render('users/profile.ejs', {user: res.locals.user, savedBooks, tags})
+        console.log(savedBooks)
+        // const tags = await db.tag.findAll({
+        //     where:{
+        //         userId: res.locals.user.dataValues.id
+        //     },
+        //     include: [db.book]
+        // })
+        // savedBooks.forEach(book => {
+        //     const relevantTags = tags.filter((tag)=> {
+        //         return tag.dataValues.books.some((taggedbook)=>{
+        //             return taggedbook.dataValues.bookid === book.key
+        //         })
+        //     })
+        // })
+        res.render('users/profile.ejs', {user: res.locals.user, savedBooks})
     }catch(err){
         console.warn('🔥🔥🔥🔥🔥🔥',err)
     }
