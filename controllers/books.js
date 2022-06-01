@@ -5,6 +5,7 @@ const cryptoJS = require('crypto-js')
 const bcrypt = require('bcryptjs')
 const axios =require('axios')
 const { user } = require('pg/lib/defaults')
+const { redirect } = require('express/lib/response')
 
 
 // const url = `https://openlibrary.org/search.json?q=${req.query.bookSearch}`
@@ -55,22 +56,30 @@ router.get('/details/works/:id', async (req, res) => {
                 userId: res.locals.user.dataValues.id
             }
         })
-       
         const tags = await db.tag.findAll({
             where:{
                 userId: res.locals.user.dataValues.id
-            }
+            },
+            include: [db.book]
         })
-        res.render('books/details.ejs', {details, author:authorDeets.data, user:res.locals.user, savedBook, tags})
+        const relevantTags = tags.filter((tag)=> {
+            return tag.dataValues.books.some((book)=>{
+                return book.dataValues.bookid === details.key
+            })
+        })
+        console.log(relevantTags)
+        res.render('books/details.ejs', {details, author:authorDeets.data, user:res.locals.user, savedBook, relevantTags})
+        
     }catch(err){
         console.warn('🔥🔥🔥🔥🔥🔥', err)
     }
 })
 
 // POST -- allows user to create and add tags to saved books
-router.post('/details/works/:id', async (req,res) => {
+router.post('/details', async (req,res) => {
     try{
-        const [foundBook, found] = await db.book.findByPk(req.params.id)
+        console.log(req.body.bookId,'😭😭😭')
+        const foundBook = await db.book.findByPk(req.body.bookId)
         const [foundOrCreatedTag, createdTag] = await db.tag.findOrCreate({
             where:{
                 userId: res.locals.user.dataValues.id,
@@ -78,6 +87,9 @@ router.post('/details/works/:id', async (req,res) => {
             }
         })
         foundBook.addTag(foundOrCreatedTag)
+        // const savedBooks = await db.book.findAll()
+        res.redirect(`/books/details${req.body.bookKey}`)
+        console.log(foundOrCreatedTag)
     }catch(err){
         console.warn('🔥🔥🔥🔥🔥🔥', err)
     }

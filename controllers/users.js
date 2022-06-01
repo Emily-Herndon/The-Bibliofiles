@@ -92,15 +92,15 @@ router.post('/profile', async (req, res) => {
 // DELETE -- allows user to delete a book from their saved books
 router.delete('/profile', async (req,res) => {
     try{
-        console.log(req.params.books_cover_url)
+        console.log("😭😭😭😭😭😭😭😭😭",req.body.id)
         const bookNoMo = await db.book.findOne({
             where:{
-                bookid: req.params.id,
+                id: req.body.id,
                 // userId: req.params.userId
             }
         })
         await bookNoMo.destroy()
-        res.redirect('/profile')
+        res.redirect('/users/profile')
     } catch(err) {
         console.warn('🔥🔥🔥🔥🔥🔥',err)
     }

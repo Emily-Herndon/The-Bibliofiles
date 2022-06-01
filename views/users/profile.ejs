@@ -15,7 +15,6 @@
     <% savedBooks.forEach(book => { %> 
       <li> <a href="/books/details<%= book.bookid %>"> <%= book.title %> </a>
         <form method="POST" action="/users/profile/?_method=DELETE">
-         
           <input hidden value="<%= book.id %>" name="id"/>
           <button type="submit">Delete</button>
         </form>
