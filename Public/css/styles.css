@@ -1,10 +1,7 @@
-.container{
+/* .container{
     display: flexbox;
     text-align: center;
-}
-#search{
-    width:fit-content;
-}
+} */
 #navBarBrand{
     font-family: 'Homemade Apple', cursive;
 }
