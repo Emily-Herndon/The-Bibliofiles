@@ -5,7 +5,12 @@
 #search{
     width:fit-content;
 }
-
+#navBarBrand{
+    font-family: 'Homemade Apple', cursive;
+}
+main{
+    font-family: 'Special Elite', cursive;
+}
 .my-flex{
     height: 80vh;
 }
@@ -26,7 +31,7 @@ input[type="checkbox"].toggle + label::before {
     align-items: center;
     justify-content:space-around;
     color: #DDD;
-    content: "\1F311 )--\2600";
+    content: "\1F311 __\2600";
     right: .1em;
     width: 4em;
     height: 2em;

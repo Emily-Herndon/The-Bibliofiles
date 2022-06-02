@@ -4,8 +4,7 @@ const db = require('../models')
 const cryptoJS = require('crypto-js')
 const bcrypt = require('bcryptjs')
 const axios =require('axios')
-const { user } = require('pg/lib/defaults')
-const { redirect } = require('express/lib/response')
+
 
 
 // const url = `https://openlibrary.org/search.json?q=${req.query.bookSearch}`
