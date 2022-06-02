@@ -71,8 +71,13 @@ router.get('/details/works/:id', async (req, res) => {
                 return book.dataValues.bookid === details.key
             })
         })
+        const nonRelevantTags = tags.filter((tag)=> {
+            return tag.dataValues.books.some((book)=>{
+                return book.dataValues.bookid !== details.key
+            })
+        })
         // console.log(relevantTags)
-        res.render('books/details.ejs', {details, author:authorDeets.data, user:res.locals.user, savedBook, relevantTags, tags})
+        res.render('books/details.ejs', {details, author:authorDeets.data, user:res.locals.user, savedBook, relevantTags, tags, nonRelevantTags})
         
     }catch(err){
         console.warn('🔥🔥🔥🔥🔥🔥', err)
