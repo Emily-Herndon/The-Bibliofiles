@@ -55,7 +55,7 @@ router.get('/profile', async (req, res) => {
         //check if user is authorized
         if (!res.locals.user){
             //if the user is not authorized, ask them to log in
-            res.render('user/index.ejs', {msg: 'Please log in to continue'})
+            res.render('index.ejs', {msg: 'Please log in to continue'})
             return //end the route here
         }
         const savedBooks = await db.book.findAll({
@@ -77,7 +77,7 @@ router.post('/profile', async (req, res) => {
        //check if user is authorized
        if (!res.locals.user){
         //if the user is not authorized, ask them to log in
-        res.render('user/index.ejs', {msg: 'Please log in to continue'})
+        res.render('index.ejs', {msg: 'Please log in to continue'})
         return //end the route here
     }
         await db.book.findOrCreate({
@@ -100,14 +100,14 @@ router.delete('/profile', async (req,res) => {
     try{
         if (!res.locals.user){
             //if the user is not authorized, ask them to log in
-            res.render('user/index.ejs', {msg: 'Please log in to continue'})
+            res.render('index.ejs', {msg: 'Please log in to continue'})
             return //end the route here
         }
         console.log("😭😭😭😭😭😭😭😭😭",req.body.id)
         const bookNoMo = await db.book.findOne({
             where:{
                 id: req.body.id,
-                // userId: req.params.userId
+                userId: res.locals.user.dataValues.id
             }
         })
         await bookNoMo.destroy()

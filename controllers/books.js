@@ -42,7 +42,7 @@ router.get('/details/works/:id', async (req, res) => {
     try{
         if (!res.locals.user){
             //if the user is not authorized, ask them to log in
-            res.render('user/index.ejs', {msg: 'Please log in to continue'})
+            res.render('index.ejs', {msg: 'Please log in to continue'})
             return //end the route here
         }
         
@@ -84,7 +84,7 @@ router.post('/details', async (req,res) => {
     try{
         if (!res.locals.user){
             //if the user is not authorized, ask them to log in
-            res.render('user/index.ejs', {msg: 'Please log in to continue'})
+            res.render('index.ejs', {msg: 'Please log in to continue'})
             return //end the route here
         }
         // console.log(req.body.bookId,'😭😭😭')
@@ -109,7 +109,7 @@ router.put('/details', async (req,res) => {
     try{
         if (!res.locals.user){
             //if the user is not authorized, ask them to log in
-            res.render('user/index.ejs', {msg: 'Please log in to continue'})
+            res.render('index.ejs', {msg: 'Please log in to continue'})
             return //end the route here
         }
         // console.log(req.body,'😭😭😭')
@@ -134,12 +134,22 @@ router.delete('/details', async (req,res) => {
     try{
         if (!res.locals.user){
             //if the user is not authorized, ask them to log in
-            res.render('user/index.ejs', {msg: 'Please log in to continue'})
+            res.render('index.ejs', {msg: 'Please log in to continue'})
             return //end the route here
         }
         // console.log(req.body,'😭😭😭')
-        const foundBook = await db.book.findByPk(req.body.bookId)
-        const foundTag = await db.tag.findByPk(req.body.tagId)
+        const foundBook = await db.book.findOne({
+            where: {
+                id:req.body.bookId,
+                userId: res.locals.user.dataValues.id
+            }
+            })
+        const foundTag = await db.tag.findOne({
+            where: {
+                id:req.body.tagId,
+                userId: res.locals.user.dataValues.id
+            }
+        })
         foundBook.removeTag(foundTag)
         res.redirect(`/books/details${req.body.bookKey}`)
         // console.log(foundOrCreatedTag)

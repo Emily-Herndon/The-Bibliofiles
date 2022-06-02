@@ -50,5 +50,3 @@ comment: text
 ### Stretch
 sequelize model:create --name comment --attributes userId:integer,bookId:number,tag:string
 
-
-

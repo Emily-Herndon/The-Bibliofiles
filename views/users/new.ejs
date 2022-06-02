@@ -1,21 +1,27 @@
+<link rel="stylesheet" href="../css/styles.css"/>
+<div id="login-page" class="container my-flex d-flex flex-column justify-content-center align-items-center">
 <% if (msg) { %> 
     <div>
         <p><%= msg %> </p>
     </div>
 <% } %> 
+    <form method="POST" action="/users/new" class="d-flex flex-column w-25 form-control">
+        <div class="form-floating mb-3">
+            <input id="username" type="username" name="username" placeholder="Enter your username" class="form-control" required/>
+            <label for="username">Username</label>
+        </div>
 
+        <div class="form-floating mb-3">
+            <input id="email" type="email" name="email" placeholder="Enter your email" class="form-control" required/>
+            <label for="email">Email</label>
+        </div>
+        
+        <div class="form-floating mb-3">
+            <input id="password" type="password" name="password" placeholder="Enter your password" class="form-control" required/>
+            <label for="password">Password</label>
+        </div>
 
-
-<form method="POST" action="/users/new">
-    <label for="username">Username</label>
-    <input id="username" type="username" name="username" placeholder="Enter your username" required/>
-
-    <label for="email">Email</label>
-    <input id="email" type="email" name="email" placeholder="Enter your email" required/>
-    
-    <label for="password">Password</label>
-    <input id="password" type="password" name="password" placeholder="Enter your password" required/>
-
-    <button type="submit">Sign Up!</button>
-</form>
-<p>Already have an account? <a href="/">Login!</a></p>
+        <button type="submit" class="form-control">Sign Up!</button>
+    </form>
+    <p>Already have an account? <a href="/">Login!</a></p>
+</div>  

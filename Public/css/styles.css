@@ -2,3 +2,12 @@
     display: flexbox;
     text-align: center;
 }
+#search{
+    width:fit-content;
+}
+.container{
+    position: relative;
+}
+.my-flex{
+    height: 80vh;
+}
