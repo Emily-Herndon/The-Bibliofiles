@@ -8,6 +8,7 @@ const cryptoJS = require('crypto-js')
 const bcrypt = require('bcryptjs')
 const methodOverride = require('method-override')
 
+
 // app config
 const PORT = process.env.PORT || 3000
 const app = express()
@@ -20,6 +21,7 @@ app.use(require('express-ejs-layouts'))
 app.use(express.urlencoded({ extended: false }))
 app.use(cookieParser())
 app.use(methodOverride('_method'))
+app.use(express.static("public"))
 
 // DIY middleware
 // happens on every request

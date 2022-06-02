@@ -1,6 +1,6 @@
 <h2><%= user.username %>'s Profile</h2>
 
-
+<link rel="stylesheet" href="/Public/css/styles.css"/>
 
 <form method="GET" action="/books/results">
     <label for="search"></label>
@@ -11,18 +11,21 @@
 
   <h3>Your Saved Books</h3>
 
-  <ul>
-    <% savedBooks.forEach(book => { %> 
-      <li> <a href="/books/details<%= book.bookid %>"> <%= book.title %> </a>
-        <p>Tags:
-          <% book.tags.forEach(tag => { %> 
-            (<%= tag.title %>)  
-            <% }) %> 
-        </p>
+<div class="container">
+  <% savedBooks.forEach(book => { %> 
+    <div class="row">
+      <div class="column"> <a href="/books/details<%= book.bookid %>"> <%= book.title %> </div>
+      <div class="column">Tags:
+      <% book.tags.forEach(tag => { %> 
+        (<%= tag.title %>)  
+      <% }) %> 
+      </div>
+      <div class="column">
         <form method="POST" action="/users/profile/?_method=DELETE">
           <input hidden value="<%= book.id %>" name="id"/>
           <button type="submit">Delete</button>
         </form>
-      </li>
-      <% }) %> 
-  </ul>
+      </div>
+    </div>
+  <% }) %> 
+</div>

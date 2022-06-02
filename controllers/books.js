@@ -114,13 +114,13 @@ router.put('/details', async (req,res) => {
         }
         // console.log(req.body,'😭😭😭')
         const foundBook = await db.book.findByPk(req.body.bookId)
-        const [foundOrCreatedTag, createdTag] = await db.tag.findOrCreate({
+        const foundTag = await db.tag.findOne({
             where:{
                 userId: res.locals.user.dataValues.id,
                 title: req.body.title
             }
         })
-        foundBook.addTag(foundOrCreatedTag)
+        foundBook.addTag(foundTag)
         // const savedBooks = await db.book.findAll()
         res.redirect(`/books/details${req.body.bookKey}`)
         // console.log(foundOrCreatedTag)
