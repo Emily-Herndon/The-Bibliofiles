@@ -4,7 +4,7 @@ const db = require('../models')
 const cryptoJS = require('crypto-js')
 const bcrypt = require('bcryptjs')
 const axios =require('axios')
-
+const { Op } = require("sequelize");
 
 
 // const url = `https://openlibrary.org/search.json?q=${req.query.bookSearch}`
@@ -79,6 +79,7 @@ router.get('/details/works/:id', async (req, res) => {
             return !bookKeys.includes(details.key)
         })
         // console.log(nonRelevantTags)
+        console.log(savedBook.id, '🤦🏼‍♀️')
         res.render('books/details.ejs', {details, author:authorDeets.data, user:res.locals.user, savedBook, relevantTags, tags, nonRelevantTags})
         
     }catch(err){
@@ -104,6 +105,7 @@ router.post('/details', async (req,res) => {
         })
         foundBook.addTag(foundOrCreatedTag)
         // const savedBooks = await db.book.findAll()
+        
         res.redirect(`/books/details${req.body.bookKey}`)
         // console.log(foundOrCreatedTag)
     }catch(err){
@@ -131,19 +133,26 @@ router.put('/details', async (req,res) => {
         // // const savedBooks = await db.book.findAll()
         // res.redirect(`/books/details${req.body.bookKey}`)
         // // console.log(foundOrCreatedTag)
-        const tagIdsToApply = req.body.selectedTags
-        const tagIdsToRemove = req.body.unselectedTags
-        console.log(tagIdsToApply, tagIdsToRemove, '🌐')
-        // const foundBook = await db.book.findByPk(req.body.bookId)
-        // const foundTagsToApply = await db.tag.findAll({
-        //     where: {
-        //         userId: res.locals.user.dataValues.id,
-        //         id: {[Op.or]:[]}
-        //     }
-        // })
+        const tagIdsToApply = req.body['id[]']
+        console.log(tagIdsToApply, '🌐')
+        const foundBook = await db.book.findByPk(req.body.bookId)
+        const removeAllTags = await db.tag.findAll({
+            where: {
+                userId: res.locals.user.dataValues.id
+            }
+        })
+        foundBook.removeTags(removeAllTags)
+        const foundTagsToApply = await db.tag.findAll({
+            where: {
+                userId: res.locals.user.dataValues.id,
+                id: {[Op.or]:tagIdsToApply}
+            }
+        })
+        foundBook.addTags(foundTagsToApply)
     }catch(err){
         console.warn('🔥🔥🔥🔥🔥🔥', err)
     }
+      res.redirect(`/books/details${req.body.bookKey}`)
 })
 
 //DELETE -- delete tags from books
