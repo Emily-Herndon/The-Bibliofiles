@@ -1,6 +1,7 @@
 <link rel="stylesheet" href="/css/styles.css"/>
-<!-- Modal -->
-<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<% if(savedBook){ %>
+    <!-- Modal -->
+<div class="modal fade" id="editTagsModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header">
@@ -36,7 +37,7 @@
       </div>
     </div>
   </div>
-
+<% } %>
 <div class="container d-flex flex-column justify-content-center align-items-center">
     <% if(!details.covers){ %>
         <p>No Cover Image Available</p>
@@ -64,56 +65,68 @@
         </ul>
     <% } %>
     <% if(!savedBook){ %>
-    <form method="POST" action="/users/profile">
-        <input hidden value="<%= details.key %>" name="bookid"/>
-        <input hidden value="<%= details.title %>" name="title"/>
-        <input hidden value="<%= author.name %>" name="author"/>
-        <% if(!details.covers){ %>
-        <% }else{ %>
-        <input hidden value="https://covers.openlibrary.org/b/id/<%=details.covers[0]%>-L.jpg" name="books_cover_url"/>
-        <% } %>
-        <input hidden value="<%= user.id %> " name="userId"/>
-        <button type="submit">Save this book!</button>
-    </form>
+    <div class="d-flex flex-column justify-content-center align-items-center">
+        <form method="POST" action="/users/profile">
+            <input hidden value="<%= details.key %>" name="bookid"/>
+            <input hidden value="<%= details.title %>" name="title"/>
+            <input hidden value="<%= author.name %>" name="author"/>
+            <% if(!details.covers){ %>
+            <% }else{ %>
+            <input hidden value="https://covers.openlibrary.org/b/id/<%=details.covers[0]%>-L.jpg" name="books_cover_url"/>
+            <% } %>
+            <input hidden value="<%= user.id %> " name="userId"/>
+            <button type="submit" class="btn btn-primary">Save this book!</button>
+        </form>
+    </div>
     <% } else{ %>
-        <ul class="list-unstyled">Tags:
-            <% relevantTags.forEach(tag =>{ %>
-                <li>
-                    <%= tag.title %>
-                    <form method="POST" action="/books/details/?_method=DELETE">
-                        <input hidden value="<%= details.key %>" name="bookKey"/>
-                        <input hidden value="<%= savedBook.id %>" name="bookId"/>
-                        <input hidden value="<%= user.id %> " name="userId"/>
-                        <input hidden value="<%= tag.id %> " name="tagId"/>
-                        <button type="submit">Remove Tag</button>
-                      </form>
-                </li>
-            <% }) %>
-        </ul>
-        <form method="POST" action="/books/details/?_method=PUT">
-            <input hidden value="<%= details.key %>" name="bookKey"/>
-            <input hidden value="<%= savedBook.id %>" name="bookId"/>
-            <input hidden value="<%= user.id %> " name="userId"/>
-            <label for="editTags">Choose a tag:</label>
-            <select id="editTags" name="title">
-                <% tags.forEach(tag=>{ %>
-                    <option name="title" value="<%=tag.title%>"><%=tag.title%></option>
+        <div class="d-flex flex-column justify-content-center align-items-center">
+            <ul class="list-unstyled">Tags:
+                <% relevantTags.forEach(tag =>{ %>
+                    <li>
+                        <%= tag.title %>
+                        <form method="POST" action="/books/details/?_method=DELETE">
+                            <input hidden value="<%= details.key %>" name="bookKey"/>
+                            <input hidden value="<%= savedBook.id %>" name="bookId"/>
+                            <input hidden value="<%= user.id %> " name="userId"/>
+                            <input hidden value="<%= tag.id %> " name="tagId"/>
+                            <button class="btn btn-danger" type="submit">Remove Tag</button>
+                          </form>
+                    </li>
                 <% }) %>
-            </select>
-            <button type="submit">EditTags!</button>
+            </ul>
+        </div>
+        <div class="d-flex flex-column justify-content-center align-items-center">
+            <form method="POST" action="/books/details/?_method=PUT">
+                <input hidden value="<%= details.key %>" name="bookKey"/>
+                <input hidden value="<%= savedBook.id %>" name="bookId"/>
+                <input hidden value="<%= user.id %> " name="userId"/>
+                <label for="editTags">Choose a tag:</label>
+                <select id="editTags" name="title">
+                    <% tags.forEach(tag=>{ %>
+                        <option name="title" value="<%=tag.title%>"><%=tag.title%></option>
+                    <% }) %>
+                </select>
+                <div class="d-flex flex-column justify-content-center align-items-center">
+                    <button class="btn btn-primary mb-1" type="submit">EditTags!</button>
+                </div>
+            </form>
             <!-- Button trigger modal -->
-                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
-                    Edit Tags
-                </button>
-        </form>
-        <form method="POST" action="/books/details">
-            <input hidden value="<%= details.key %>" name="bookKey"/>
-            <input hidden value="<%= savedBook.id %>" name="bookId"/>
-            <input hidden value="<%= user.id %> " name="userId"/>
-            <label for="addTag">Make a New Tag</label>
-            <input id ="addTag" type="text" name="title"/>
-            <button type="submit">Add Tags!</button>
-        </form>
+            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#editTagsModal">
+                Edit Tags
+            </button>
+        </div>
+        <div class="d-flex flex-column justify-content-center align-items-center">
+            <form method="POST" action="/books/details">
+                <input hidden value="<%= details.key %>" name="bookKey"/>
+                <input hidden value="<%= savedBook.id %>" name="bookId"/>
+                <input hidden value="<%= user.id %> " name="userId"/>
+                <label for="addTag">Make a New Tag</label>
+                <input id ="addTag" type="text" name="title"/>
+                <div class="d-flex flex-column justify-content-center align-items-center">
+                    <button class="btn btn-primary mt-1" type="submit">Add Tags!</button>
+                </div>
+            </form>
+        </div>
     
     <% } %>
     <!-- <a href="/books/results">Back</a> -->
