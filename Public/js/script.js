@@ -18,12 +18,14 @@ const enableDarkMode = () => {
   document.body.classList.add('dark')
   // update dark mode in localStorage
   localStorage.setItem("darkMode", "enabled")
+  document.getElementById("dark-mode").checked = true
 }
 const disableDarkMode = () => {
   // removes dark mode from body
   document.body.classList.remove('dark')
   // update dark mode in localStorage
   localStorage.setItem("darkMode", null)
+  document.getElementById("dark-mode").checked = false
 }
 if(darkMode === "enabled"){
   enableDarkMode()
