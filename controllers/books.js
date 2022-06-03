@@ -78,7 +78,7 @@ router.get('/details/works/:id', async (req, res) => {
             // console.log(bookKeys)
             return !bookKeys.includes(details.key)
         })
-        console.log(nonRelevantTags)
+        // console.log(nonRelevantTags)
         res.render('books/details.ejs', {details, author:authorDeets.data, user:res.locals.user, savedBook, relevantTags, tags, nonRelevantTags})
         
     }catch(err){
@@ -120,17 +120,27 @@ router.put('/details', async (req,res) => {
             return //end the route here
         }
         // console.log(req.body,'😭😭😭')
-        const foundBook = await db.book.findByPk(req.body.bookId)
-        const foundTag = await db.tag.findOne({
-            where:{
-                userId: res.locals.user.dataValues.id,
-                title: req.body.title
-            }
-        })
-        foundBook.addTag(foundTag)
-        // const savedBooks = await db.book.findAll()
-        res.redirect(`/books/details${req.body.bookKey}`)
-        // console.log(foundOrCreatedTag)
+        // const foundBook = await db.book.findByPk(req.body.bookId)
+        // const foundTag = await db.tag.findOne({
+        //     where:{
+        //         userId: res.locals.user.dataValues.id,
+        //         title: req.body.title
+        //     }
+        // })
+        // foundBook.addTag(foundTag)
+        // // const savedBooks = await db.book.findAll()
+        // res.redirect(`/books/details${req.body.bookKey}`)
+        // // console.log(foundOrCreatedTag)
+        const tagIdsToApply = req.body.selectedTags
+        const tagIdsToRemove = req.body.unselectedTags
+        console.log(tagIdsToApply, tagIdsToRemove, '🌐')
+        // const foundBook = await db.book.findByPk(req.body.bookId)
+        // const foundTagsToApply = await db.tag.findAll({
+        //     where: {
+        //         userId: res.locals.user.dataValues.id,
+        //         id: {[Op.or]:[]}
+        //     }
+        // })
     }catch(err){
         console.warn('🔥🔥🔥🔥🔥🔥', err)
     }

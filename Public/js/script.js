@@ -1,12 +1,4 @@
-// const btn = document.querySelector('#editTagsButton')
-// btn.addEventListener('click', (event) => {
-//     let checkedTags = document.querySelectorAll('input[name="title"]:checked')
-//     let wantedTags = []
-//     checkedTags.forEach((checkbox) => {
-//         wantedTags.push(checkbox.value)
-//     })
-// })
-// console.log(`The tags wanted on this book are ${wantedTags} 🔖🔖🔖🔖🔖🔖🔖🔖`)
+
 
 
 // DARK MODE TOGGLE
@@ -45,6 +37,15 @@ darkModeSwitch.addEventListener('click', ()=>{
 })
 
 const editTagsButton = document.querySelector('#editTagButton')
-editTagsButton.addEventListener('submit', () => {
-  
+editTagsButton.addEventListener('click', (event) => {
+  event.preventDefault()
+  const tagSelectors = Array.from(document.querySelectorAll('.tags'))
+  const selectedTags = tagSelectors.filter((tag) => {
+    return tag.checked
+  })
+  const unSelectedTags = tagSelectors.filter((tag) => {
+    return !tag.checked
+  })
+  console.log('do i worky?')
+  axios.post('/books/details', {selectedTags, unSelectedTags})
 })
