@@ -8,10 +8,34 @@
 // })
 // console.log(`The tags wanted on this book are ${wantedTags} 🔖🔖🔖🔖🔖🔖🔖🔖`)
 
+
 // DARK MODE TOGGLE
+
+let darkMode = localStorage.getItem("darkMode")
 const darkModeSwitch = document.querySelector('#dark-mode')
+const enableDarkMode = () => {
+  // add dark mode to body
+  document.body.classList.add('dark')
+  // update dark mode in localStorage
+  localStorage.setItem("darkMode", "enabled")
+}
+const disableDarkMode = () => {
+  // removes dark mode from body
+  document.body.classList.remove('dark')
+  // update dark mode in localStorage
+  localStorage.setItem("darkMode", null)
+}
+if(darkMode === "enabled"){
+  enableDarkMode()
+}
+
 darkModeSwitch.addEventListener('click', ()=>{
-  console.log('hello')
-  document.body.classList.toggle('dark')
-  console.log('there')
+  darkMode = localStorage.getItem("darkMode")
+  if(darkMode !== "enabled"){
+    enableDarkMode()
+    console.log(`Dark mode enabled ${darkMode} 🌑🌑🌑🌑🌑🌑`)
+  } else {
+    disableDarkMode()
+    console.log(`Dark mode disabled ${darkMode} ☀️☀️☀️☀️☀️☀️☀️☀️`)
+  }
 })

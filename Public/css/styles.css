@@ -20,6 +20,9 @@ body.dark{
     --background-color: #001d3d;
     --text-color: #ffc300;
 }
+a{
+    color: var(--text-color);
+}
 .my-flex{
     height: 80vh;
 }

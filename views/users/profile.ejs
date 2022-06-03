@@ -1,20 +1,16 @@
-<!-- <nav class="navbar bg-light">
-  <div class="container-fluid">
-    <form method="GET" action="/books/results" class="d-flex" role="search">
-      <input class="form-control me-2" type="search" placeholder="Search books or authors"id="search" name="bookSearch" aria-label="Search">
-      <button class="btn btn-outline-success" type="submit">Search</button>
-    </form>
-  </div>
-</nav> -->
 <link rel="stylesheet" href="../css/styles.css"/>
 
-<div id="profile-page">
-  <h2><%= user.username %>'s Profile</h2>
+<div id="profile-page" class="container d-flex flex-column justify-content-center align-items-center mt-5">
+  <div class="my-2">
+    <h2><%= user.username %>'s Profile</h2>
+  </div>
   
   
-    <h3>Your Saved Books</h3>
+    <div class="my-4 justify-content-center align-items-center">
+      <h3>Your Saved Books</h3>
+    </div>
   
-    <div class="container">
+    <div class="container justify-content-center align-items-center">
     <% savedBooks.forEach(book => { %>
       <div class="row">
         <div class="col"><a href="/books/details<%= book.bookid %>"> <%= book.title %></a> </div>
@@ -24,10 +20,10 @@
             (<%= tag.title %>)
             <% }) %>
           </div>
-          <div class="col">
+          <div class="col mb-1">
             <form method="POST" action="/users/profile/?_method=DELETE">
               <input hidden value="<%= book.id %>" name="id"/>
-              <button type="submit">Delete</button>
+              <button class="btn btn-danger" type="submit">Remove Book</button>
             </form>
         </div>
       </div>
