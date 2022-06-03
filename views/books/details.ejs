@@ -10,6 +10,19 @@
         </div>
         <div class="modal-body">
             <div class ="container d-flex justify-content-center align-items-center">
+                <form class="input-group mb-3 flex-column" method="POST" action="/books/details">
+                    <div class="input-group-text">
+                        <input hidden value="<%= details.key %>" name="bookKey"/>
+                        <input hidden value="<%= savedBook.id %>" name="bookId"/>
+                        <input hidden value="<%= user.id %> " name="userId"/>
+                        <label for="addTag">Make a New Tag</label>
+                        <div class="d-flex flex-column justify-content-center align-items-center">
+                        </div>
+                        <input class="form-check-input mt-0" type="checkbox" value="" aria-label="Checkbox for following text input">
+                        <input type="text" class="form-control" id ="addTag" name="title" aria-label="Text input with checkbox">
+                    </div>
+                    <button class="btn btn-primary mt-1" type="submit">Add Tags!</button>
+                </form>
                 <form method="POST" action="/books/details/?_method=PUT" class="d-flex flex-column w-100 form-control">
                     <input hidden value="<%= details.key %>" name="bookKey"/>
                     <input hidden value="<%= savedBook.id %>" name="bookId"/>
@@ -82,51 +95,22 @@
     </div>
     <% } else{ %>
         <div class="d-flex flex-column justify-content-center text-center align-items-center">
-            <ul class="list-unstyled">Tags:
+            <ul class="list-unstyled">Your Tags:
                 <% relevantTags.forEach(tag =>{ %>
                     <li>
                         <%= tag.title %>
-                        <form method="POST" action="/books/details/?_method=DELETE">
-                            <input hidden value="<%= details.key %>" name="bookKey"/>
-                            <input hidden value="<%= savedBook.id %>" name="bookId"/>
-                            <input hidden value="<%= user.id %> " name="userId"/>
-                            <input hidden value="<%= tag.id %> " name="tagId"/>
-                            <button class="btn btn-danger" type="submit">Remove</button>
-                          </form>
                     </li>
                 <% }) %>
             </ul>
         </div>
-        <div class="d-flex flex-column justify-content-center align-items-center">
-            <form method="POST" action="/books/details/?_method=PUT">
-                <input hidden value="<%= details.key %>" name="bookKey"/>
-                <input hidden value="<%= savedBook.id %>" name="bookId"/>
-                <input hidden value="<%= user.id %> " name="userId"/>
-                <label for="editTags">Choose a tag:</label>
-                <select id="editTags" name="title">
-                    <% tags.forEach(tag=>{ %>
-                        <option name="title" value="<%=tag.title%>"><%=tag.title%></option>
-                    <% }) %>
-                </select>
-                <div class="d-flex flex-column justify-content-center align-items-center">
-                    <button class="btn btn-primary mb-1" type="submit">EditTags!</button>
-                </div>
-            </form>
             <!-- Button trigger modal -->
             <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#editTagsModal">
-                Edit Tags Modal
+                Edit Tags!
             </button>
         </div>
         <div class="d-flex flex-column justify-content-center align-items-center mb-5 mt-1">
-            <form method="POST" action="/books/details">
-                <input hidden value="<%= details.key %>" name="bookKey"/>
-                <input hidden value="<%= savedBook.id %>" name="bookId"/>
-                <input hidden value="<%= user.id %> " name="userId"/>
-                <label for="addTag">Make a New Tag</label>
-                <input id ="addTag" type="text" name="title"/>
-                <div class="d-flex flex-column justify-content-center align-items-center">
-                    <button class="btn btn-primary mt-1" type="submit">Add Tags!</button>
-                </div>
+            <form >
+               
             </form>
         </div>
     

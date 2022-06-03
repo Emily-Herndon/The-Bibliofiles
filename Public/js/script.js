@@ -1,6 +1,3 @@
-
-
-
 // DARK MODE TOGGLE
 
 let darkMode = localStorage.getItem("darkMode")
@@ -35,20 +32,3 @@ darkModeSwitch.addEventListener('click', ()=>{
     console.log(`Dark mode disabled ${darkMode} ☀️☀️☀️☀️☀️☀️☀️☀️`)
   }
 })
-
-// const editTagsButton = document.querySelector('#editTagButton')
-// editTagsButton.addEventListener('click', (event) => {
-//   const tagSelectors = Array.from(document.querySelectorAll('.tags'))
-//   const selectedTags = tagSelectors.filter((tag) => {
-//     return tag.checked
-//   })
-//   const unSelectedTags = tagSelectors.filter((tag) => {
-//     return !tag.checked
-//   })
-//   console.log('do i worky?')
-//   axios.put('/books/details', {selectedTags, unSelectedTags})
-//   .then()
-//   .catch((err) => {
-//     console.log(err, "🔥🔥🔥🔥🔥🔥")
-//   })
-// })
