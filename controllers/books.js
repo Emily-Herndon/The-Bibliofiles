@@ -79,7 +79,7 @@ router.get('/details/works/:id', async (req, res) => {
             return !bookKeys.includes(details.key)
         })
         // console.log(nonRelevantTags)
-        console.log(savedBook.id, '🤦🏼‍♀️')
+        // console.log(savedBook.id, '🤦🏼‍♀️')
         res.render('books/details.ejs', {details, author:authorDeets.data, user:res.locals.user, savedBook, relevantTags, tags, nonRelevantTags})
         
     }catch(err){

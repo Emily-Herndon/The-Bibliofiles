@@ -21,7 +21,7 @@ app.use(require('express-ejs-layouts'))
 app.use(express.urlencoded({ extended: false }))
 app.use(cookieParser())
 app.use(methodOverride('_method'))
-app.use(express.static("public"))
+app.use(express.static("Public"))
 
 // DIY middleware
 // happens on every request
