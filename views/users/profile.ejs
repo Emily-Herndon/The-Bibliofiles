@@ -8,27 +8,29 @@
 </nav> -->
 <link rel="stylesheet" href="../css/styles.css"/>
 
-<h2><%= user.username %>'s Profile</h2>
-
-
-  <h3>Your Saved Books</h3>
-
-  <div class="container">
-  <% savedBooks.forEach(book => { %> 
-    <div class="row">
-      <div class="col"><a href="/books/details<%= book.bookid %>"> <%= book.title %></a> </div>
-      <div class="col">
-        Tags:
-        <% book.tags.forEach(tag => { %> 
-          (<%= tag.title %>)  
-          <% }) %> 
-        </div>
+<div id="profile-page">
+  <h2><%= user.username %>'s Profile</h2>
+  
+  
+    <h3>Your Saved Books</h3>
+  
+    <div class="container">
+    <% savedBooks.forEach(book => { %>
+      <div class="row">
+        <div class="col"><a href="/books/details<%= book.bookid %>"> <%= book.title %></a> </div>
         <div class="col">
-          <form method="POST" action="/users/profile/?_method=DELETE">
-            <input hidden value="<%= book.id %>" name="id"/>
-            <button type="submit">Delete</button>
-          </form>
+          Tags:
+          <% book.tags.forEach(tag => { %>
+            (<%= tag.title %>)
+            <% }) %>
+          </div>
+          <div class="col">
+            <form method="POST" action="/users/profile/?_method=DELETE">
+              <input hidden value="<%= book.id %>" name="id"/>
+              <button type="submit">Delete</button>
+            </form>
+        </div>
       </div>
+      <% }) %>
     </div>
-    <% }) %> 
-  </div>
+</div>

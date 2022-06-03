@@ -38,7 +38,7 @@
     </div>
   </div>
 <% } %>
-<div class="container d-flex flex-column justify-content-center align-items-center">
+<div id="details-page" class="container d-flex flex-column justify-content-center align-items-center">
     <% if(!details.covers){ %>
         <p>No Cover Image Available</p>
     <% }else{ %>
@@ -89,7 +89,7 @@
                             <input hidden value="<%= savedBook.id %>" name="bookId"/>
                             <input hidden value="<%= user.id %> " name="userId"/>
                             <input hidden value="<%= tag.id %> " name="tagId"/>
-                            <button class="btn btn-danger" type="submit">Remove Tag</button>
+                            <button class="btn btn-danger" type="submit">Remove</button>
                           </form>
                     </li>
                 <% }) %>
@@ -112,10 +112,10 @@
             </form>
             <!-- Button trigger modal -->
             <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#editTagsModal">
-                Edit Tags
+                Edit Tags Modal
             </button>
         </div>
-        <div class="d-flex flex-column justify-content-center align-items-center">
+        <div class="d-flex flex-column justify-content-center align-items-center mb-5 mt-1">
             <form method="POST" action="/books/details">
                 <input hidden value="<%= details.key %>" name="bookKey"/>
                 <input hidden value="<%= savedBook.id %>" name="bookId"/>

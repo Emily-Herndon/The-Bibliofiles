@@ -8,9 +8,22 @@
 main{
     font-family: 'Special Elite', cursive;
 }
+body{
+    --accent-color: grey;
+    --background-color: white;
+    --text-color: black;
+    background-color: var(--background-color);
+    color: var(--text-color);
+}
+body.dark{
+    --accent-color: rgb(42, 39, 84);
+    --background-color: rgb(0, 0, 0);
+    --text-color: rgb(111, 110, 110);
+}
 .my-flex{
     height: 80vh;
 }
+/* Creates dark mode toggle switch */
 input[type="checkbox"].toggle {
     opacity: 0;
     position: absolute;
@@ -23,6 +36,7 @@ input[type="checkbox"].toggle + label {
     align-items: center;
     cursor: pointer;
 }
+/* toggle switch background when */
 input[type="checkbox"].toggle + label::before {
     display: flex;
     align-items: center;
@@ -36,6 +50,7 @@ input[type="checkbox"].toggle + label::before {
     border-radius: 1em;
     margin-right: .25em;
 }
+/* switch in left position */
 input[type="checkbox"].toggle + label::after {
     position: absolute;
     left: .1em;
@@ -47,20 +62,25 @@ input[type="checkbox"].toggle + label::after {
     transition: background-color 200ms ease-in-out, transform 200ms ease-in-out;
 
 }
+/* allows for better accessibility (causes outline aroung toggle to appear when focussed on)*/
 input[type="checkbox"].toggle:focus + label::before{
     outline: 1px solid grey;
 }
+/* switch moves slightly left when hovered over */
 input[type="checkbox"].toggle:hover + label::after{
     transform: translateX(5%);
 }
+/* changes background color when switch is to the right */
 input[type="checkbox"].toggle:checked + label::before {
     background-color: darkgray;
     color: darkgray;
 }
+/* moves switch to the right and changes its color */
 input[type="checkbox"].toggle:checked + label::after {
     transform: translateX(100%);
     background-color: black;
 }
+/* when switch is in right position it slides slightly to the left when hovered over */
 input[type="checkbox"].toggle:checked:hover + label::after {
     transform: translateX(95%);
 }
