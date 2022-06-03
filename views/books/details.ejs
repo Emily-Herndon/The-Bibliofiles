@@ -17,12 +17,14 @@
                     <label for="editTags">Choose a tag:</label>
                     <% relevantTags.forEach(tag => { %>
                     <div class="mb-3">
+                        <input hidden value="<%= tag.id %> " name="id"/>
                         <input type="checkbox" id="relevantTag" name="title" checked="true">
                         <label for="relevantTag"><%=tag.title%></label>
                     </div>
                     <% }) %>
                     <% nonRelevantTags.forEach(tag => { %>
                     <div class="mb-3">
+                        <input hidden value="<%= tag.id %> " name="id"/>
                         <input type="checkbox" id="nonRelevantTag" name="title" >
                         <label for="nonRelevantTag"><%=tag.title%></label>
                     </div>

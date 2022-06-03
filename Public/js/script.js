@@ -18,6 +18,7 @@ const enableDarkMode = () => {
   document.body.classList.add('dark')
   // update dark mode in localStorage
   localStorage.setItem("darkMode", "enabled")
+  // have the dark mode toggle position persistant
   document.getElementById("dark-mode").checked = true
 }
 const disableDarkMode = () => {
@@ -25,6 +26,7 @@ const disableDarkMode = () => {
   document.body.classList.remove('dark')
   // update dark mode in localStorage
   localStorage.setItem("darkMode", null)
+  // have the dark mode toggle position persistant
   document.getElementById("dark-mode").checked = false
 }
 if(darkMode === "enabled"){
@@ -40,4 +42,9 @@ darkModeSwitch.addEventListener('click', ()=>{
     disableDarkMode()
     console.log(`Dark mode disabled ${darkMode} ☀️☀️☀️☀️☀️☀️☀️☀️`)
   }
+})
+
+const editTagsButton = document.querySelector('#editTagButton')
+editTagsButton.addEventListener('submit', () => {
+  
 })
