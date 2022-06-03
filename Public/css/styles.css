@@ -17,8 +17,8 @@ body{
 }
 body.dark{
     --accent-color: rgb(42, 39, 84);
-    --background-color: rgb(0, 0, 0);
-    --text-color: rgb(111, 110, 110);
+    --background-color: #001d3d;
+    --text-color: #ffc300;
 }
 .my-flex{
     height: 80vh;

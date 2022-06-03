@@ -56,13 +56,15 @@
     <% } %>
     <% if(!details.links){ %>
     <% }else{ %>
-        <ul class="list-unstyled">Links:
-            <% details.links.forEach(link => { %>
-                <li>
-                    <a href="<%= link.url%>"><%= link.title %> </a>
-                </li>
-        <% }) %>
-        </ul>
+        <div class="d-flex flex-column justify-content-center align-items-center">
+            <ul class="list-unstyled justify-content-center">Links:
+                <% details.links.forEach(link => { %>
+                    <li>
+                        <a href="<%= link.url%>"><%= link.title %> </a>
+                    </li>
+            <% }) %>
+            </ul>
+        </div>
     <% } %>
     <% if(!savedBook){ %>
     <div class="d-flex flex-column justify-content-center align-items-center">
