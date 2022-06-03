@@ -26,6 +26,9 @@ a{
 .my-flex{
     height: 80vh;
 }
+.thingy{
+    border: 1px solid #fb8500;
+}
 /* Creates dark mode toggle switch */
 input[type="checkbox"].toggle {
     opacity: 0;
