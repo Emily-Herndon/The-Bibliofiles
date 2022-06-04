@@ -6,7 +6,7 @@
     font-family: 'Homemade Apple', cursive;
 }
 main{
-    font-family: 'Special Elite', cursive;
+    font-family: 'Special Elite', serif;
 }
 body{
     --accent-color: grey;
@@ -19,6 +19,12 @@ body.dark{
     --accent-color: rgb(42, 39, 84);
     --background-color: #001d3d;
     --text-color: #ffc300;
+}
+.navbar{
+    background-color: rgb(246, 247, 249);
+}
+.myNavStuff{
+    font-family: 'Special Elite', cursive;
 }
 a{
     color: var(--text-color);

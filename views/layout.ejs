@@ -4,13 +4,13 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="./css/styles.css"/>
   <link href="https://fonts.googleapis.com/css2?family=Homemade+Apple&family=Special+Elite" rel="stylesheet">
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
+  <link rel="stylesheet" href="./css/styles.css"/>
   <title>The Bibliofiles</title>
 </head>
 <body>
-  <nav class="navbar navbar-expand-lg bg-light">
+  <nav class="navbar navbar-expand-lg" id="navbar">
     <div class="container-fluid">
       <span class="navbar-brand mb-0 h1" id="navBarBrand">The Bibliofiles</span>
       </button>
@@ -18,30 +18,46 @@
                  <!-- if the user is logged in -->
         <ul class="navbar-nav me-auto mb-2 mb-lg-0">
         <% if (user){ %>
-          <li class="nav-item">
-            <a class="nav-link" href="/users/logout">Logout</a>
+          <li class="nav-item myNavStuff">
+            <a class="nav-link" id="navBarLogout" href="/users/logout">Logout</a>
+          </li>
+          <li class="nav-item myNavStuff">
+            <a class="nav-link" id="navBarProfile" href="/users/profile">Profile</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="/users/profile">Profile</a>
+            <a class="nav-link myNavStuff" hidden id="navBarSignup" href="/users/new">Sign Up</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link myNavStuff" hidden id="navBarLogin" href="/">Login</a>
           </li>
         </ul>
-            <form method="GET" action="/books/results" class="d-flex" role="search">
-              <input class="form-control me-2" type="search" placeholder="Search books or authors"id="search" name="bookSearch" aria-label="Search">
-              <button class="btn btn-outline-success" type="submit">Search</button>
+            <form  method="GET" action="/books/results" class="d-flex" role="search">
+              <input class="form-control me-2 myNavStuff" type="search" placeholder="Search books or authors"id="search" name="bookSearch" aria-label="Search">
+              <button class="btn btn-outline-dark myNavStuff" id="navBarSearch"  type="submit">Search</button>
             </form>
           <%}else{%>
             <!-- if the the user is not logged in -->
           <li class="nav-item">
-            <a class="nav-link" href="/users/new">Sign Up</a>
+            <a class="nav-link myNavStuff" id="navBarSignup" href="/users/new">Sign Up</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="/">Login</a>
+            <a class="nav-link myNavStuff" id="navBarLogin" href="/">Login</a>
+          </li>
+          <li class="nav-item myNavStuff">
+            <a class="nav-link" hidden id="navBarLogout" href="/users/logout">Logout</a>
+          </li>
+          <li class="nav-item myNavStuff">
+            <a class="nav-link" hidden id="navBarProfile" href="/users/profile">Profile</a>
           </li>
         </ul>
+        <form id="navBarSearch" method="GET" action="/books/results" class="d-flex" role="search">
+          <input hidden class="form-control me-2 myNavStuff" type="search" placeholder="Search books or authors"id="search" name="bookSearch" aria-label="Search">
+          <button hidden class="btn btn-outline-dark myNavStuff"  type="submit">Search</button>
+        </form>
         <%}%>
         <div class="ms-3">
           <input type="checkbox" id="dark-mode" class="toggle">
-          <label class="dark-mode" for="dark-mode">Dark Mode</label>
+          <label class="dark-mode" aria-label="dark-mode" for="dark-mode"></label>
         </div>
       </div>
     </div>

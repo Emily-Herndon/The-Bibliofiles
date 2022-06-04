@@ -12,7 +12,7 @@
   
     <div class="container justify-content-center text-center align-items-center">
     <% savedBooks.forEach(book => { %>
-      <div class="thingy justify-content-center align-items-center d-flex mb-2">
+      <div class="thingy justify-content-center align-items-center d-flex my-3">
         <div class="col"><a href="/books/details<%= book.bookid %>"> <%= book.title %></a> </div>
         <div class="col">
           Tags:
@@ -20,10 +20,10 @@
             (<%= tag.title %>)
             <% }) %>
           </div>
-          <div class="col my-1">
+          <div class="col my-2">
             <form method="POST" action="/users/profile/?_method=DELETE">
               <input hidden value="<%= book.id %>" name="id"/>
-              <button class="btn btn-danger" type="submit">Remove Book</button>
+              <button class="btn btn-outline-danger" type="submit">Remove Book</button>
             </form>
         </div>
       </div>

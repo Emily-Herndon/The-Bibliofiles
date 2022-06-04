@@ -7,8 +7,6 @@ const axios =require('axios')
 const { Op } = require("sequelize");
 
 
-// const url = `https://openlibrary.org/search.json?q=${req.query.bookSearch}`
-
 //GET -- pulls the api and renders search results
 router.get('/results', async (req, res) => {
     try{
@@ -18,14 +16,11 @@ router.get('/results', async (req, res) => {
             res.render('user/index.ejs', {msg: 'Please log in to continue'})
             return //end the route here
         }
-        // 
+        
         const url = `https://openlibrary.org/search.json?q=${req.query.bookSearch}`
         const search = await axios.get(url)
         const results= search.data.docs
-        // const results = allResults.filter((book => {
-        //     return book.has_fulltext === true
-        // }))
-        // console.log(results)
+      
         res.render('books/results.ejs', {results})
 
     }catch(err){
@@ -121,18 +116,6 @@ router.put('/details', async (req,res) => {
             res.render('index.ejs', {msg: 'Please log in to continue'})
             return //end the route here
         }
-        // console.log(req.body,'😭😭😭')
-        // const foundBook = await db.book.findByPk(req.body.bookId)
-        // const foundTag = await db.tag.findOne({
-        //     where:{
-        //         userId: res.locals.user.dataValues.id,
-        //         title: req.body.title
-        //     }
-        // })
-        // foundBook.addTag(foundTag)
-        // // const savedBooks = await db.book.findAll()
-        // res.redirect(`/books/details${req.body.bookKey}`)
-        // // console.log(foundOrCreatedTag)
         const tagIdsToApply = req.body['id[]']
         console.log(tagIdsToApply, '🌐')
         const foundBook = await db.book.findByPk(req.body.bookId)
