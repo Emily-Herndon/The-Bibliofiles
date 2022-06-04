@@ -120,8 +120,12 @@ router.put('/details', async (req,res) => {
             res.render('index.ejs', {msg: 'Please log in to continue'})
             return //end the route here
         }
-        // make an array of all the ids of the tags the user wants to apply
-        const tagIdsToApply = req.body['id[]']
+        // take the array of all the ids of the tags the user wants to apply
+        let tagIdsToApply = req.body['id[]']
+        if(!Array.isArray(req.body['id[]'])){
+            tagIdsToApply = []
+            tagIdsToApply.push(req.body['id[]'])
+        }
         console.log(tagIdsToApply, '🌐')
         // find the book in the db by the id of the one on display
         const foundBook = await db.book.findByPk(req.body.bookId)
