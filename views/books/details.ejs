@@ -62,21 +62,27 @@
     <% if(!details.covers){ %>
         <p>No Cover Image Available</p>
     <% }else{ %>
-            <img src ="https://covers.openlibrary.org/b/id/<%=details.covers[0]%>-L.jpg" />
+            <img class="my-4" src ="https://covers.openlibrary.org/b/id/<%=details.covers[0]%>-L.jpg" />
     <% } %>
     <!-- Display book title -->
     <h1><%= details.title %> </h1>
     <!-- Display author name -->
     <h2><%= author.name %> </h2>
-    
+    <!-- display details.description -->
     <% if(typeof(details.description) === "string"){ %>
-        <p><%= details.description %> </p>
+        <!-- display details.description -->
+        <p class="text-center"><%= details.description %> </p>
+        <!-- if details.description is NOT a string  -->
     <% }else if(typeof(details.description) === 'object'){ %>
-            <p><%= details.description.value %> </p>
+        <!-- display details.description.value -->
+            <p class="text-center"><%= details.description.value %> </p>
+        <!-- if there is no details.description -->
     <% }else{ %>
+        <!-- display this message instead -->
         <p>No Description Available</p>
     <% } %>
     <% if(!details.links){ %>
+        <!-- if there is no details.links display nothing -->
     <% }else{ %>
         <div class="d-flex flex-column justify-content-center align-items-center">
             <ul class="list-unstyled justify-content-center text-center">Links:
@@ -88,8 +94,10 @@
             </ul>
         </div>
     <% } %>
+    <!-- if the book is not saved by the current user -->
     <% if(!savedBook){ %>
     <div class="d-flex flex-column justify-content-center align-items-center">
+        <!-- have save button display with hidden form -->
         <form method="POST" action="/users/profile">
             <input hidden value="<%= details.key %>" name="bookid"/>
             <input hidden value="<%= details.title %>" name="title"/>
@@ -99,11 +107,13 @@
             <input hidden value="https://covers.openlibrary.org/b/id/<%=details.covers[0]%>-L.jpg" name="books_cover_url"/>
             <% } %>
             <input hidden value="<%= user.id %> " name="userId"/>
-            <button type="submit" class="btn btn-primary">Save this book!</button>
+            <button type="submit" class="btn btn-outline-info mb-5">Save this book!</button>
         </form>
     </div>
     <% } else{ %>
+        <!-- if the book is saved by the current user -->
         <div class="d-flex flex-column justify-content-center text-center align-items-center">
+            <!-- list all tags currently applied to this book -->
             <ul class="list-unstyled">Your Tags:
                 <% relevantTags.forEach(tag =>{ %>
                     <li>
@@ -112,17 +122,11 @@
                 <% }) %>
             </ul>
         </div>
-            <!-- Button trigger modal -->
-            <button type="button" class="btn btn-outline-info" id="edit-tags-button" data-bs-toggle="modal" data-bs-target="#editTagsModal">
+            <!-- Button trigger for modal -->
+            <button type="button" class="btn btn-outline-info mb-5" id="edit-tags-button" data-bs-toggle="modal" data-bs-target="#editTagsModal">
                 Edit Tags!
             </button>
 </div>
-    <div class="d-flex flex-column justify-content-center align-items-center mb-5 mt-1">
-        <form >
-            
-        </form>
-    </div> 
     <% } %>
-    <!-- <a href="/books/results">Back</a> -->
 </div>
 <script src="/js/script.js"></script>

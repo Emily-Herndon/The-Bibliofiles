@@ -16,19 +16,16 @@ router.get('/results', async (req, res) => {
             res.render('user/index.ejs', {msg: 'Please log in to continue'})
             return //end the route here
         }
-        
+        // api search
         const url = `https://openlibrary.org/search.json?q=${req.query.bookSearch}`
         const search = await axios.get(url)
         const results= search.data.docs
-      
         res.render('books/results.ejs', {results})
-
     }catch(err){
         console.warn('🔥🔥🔥🔥🔥🔥', err)
     }
 
 })
-
 
 // GET -- shows detailed info on specific book and allows it to be saved & tagged
 router.get('/details/works/:id', async (req, res) => {
@@ -39,32 +36,37 @@ router.get('/details/works/:id', async (req, res) => {
             res.render('index.ejs', {msg: 'Please log in to continue'})
             return //end the route here
         }
-        
-        // console.log(req.params.id)
+        // api search for specific work
         const url = `https://openlibrary.org/works/${req.params.id}.json`
         const results = await axios.get(url)
         const details = results.data
+        // get author "key" from details
         const author = details.authors[0].author.key
+        // api search for author key
         const authorUrl = `https://openlibrary.org/${author}.json`
         const authorDeets = await axios.get(authorUrl)
         // console.log(authorDeets)
+        // find if the book has been saved to the db for this user 
         const savedBook = await db.book.findOne({
             where: {
                 bookid: details.key,
                 userId: res.locals.user.dataValues.id
             }
         })
+        // find all tags this user has created and include the books
         const tags = await db.tag.findAll({
             where:{
                 userId: res.locals.user.dataValues.id
             },
             include: [db.book]
         })
+        // filter all of this user's tags to retun only the ones associated with this book
         const relevantTags = tags.filter((tag)=> {
             return tag.dataValues.books.some((book)=>{
                 return book.dataValues.bookid === details.key
             })
         })
+        // filter all of this user's tags to retun only the ones NOT associated with this book
         const nonRelevantTags = tags.filter((tag)=> {
             const bookKeys = tag.dataValues.books.map((book) => {
                 // console.log(book)
@@ -91,16 +93,18 @@ router.post('/details', async (req,res) => {
             return //end the route here
         }
         // console.log(req.body.bookId,'😭😭😭')
+        // find the book that is displayed
         const foundBook = await db.book.findByPk(req.body.bookId)
+        // search all tags created by this user and with the tag "title" input
+        // if none found create one
         const [foundOrCreatedTag, createdTag] = await db.tag.findOrCreate({
             where:{
                 userId: res.locals.user.dataValues.id,
                 title: req.body.title
             }
         })
+        // add the tag to the book through the join table
         foundBook.addTag(foundOrCreatedTag)
-        // const savedBooks = await db.book.findAll()
-        
         res.redirect(`/books/details${req.body.bookKey}`)
         // console.log(foundOrCreatedTag)
     }catch(err){
@@ -116,56 +120,33 @@ router.put('/details', async (req,res) => {
             res.render('index.ejs', {msg: 'Please log in to continue'})
             return //end the route here
         }
+        // make an array of all the ids of the tags the user wants to apply
         const tagIdsToApply = req.body['id[]']
         console.log(tagIdsToApply, '🌐')
+        // find the book in the db by the id of the one on display
         const foundBook = await db.book.findByPk(req.body.bookId)
+        // find all tags associated with this user
         const removeAllTags = await db.tag.findAll({
             where: {
                 userId: res.locals.user.dataValues.id
             }
         })
+        // remove all tags associated with this user and remove them from this book
         foundBook.removeTags(removeAllTags)
+        // find all the tags associated w/current user that have ids matching the ones the user wants to apply
         const foundTagsToApply = await db.tag.findAll({
             where: {
                 userId: res.locals.user.dataValues.id,
                 id: {[Op.or]:tagIdsToApply}
             }
         })
+        // apply all the tags with the ids the user wants to apply to the book
         foundBook.addTags(foundTagsToApply)
     }catch(err){
         console.warn('🔥🔥🔥🔥🔥🔥', err)
     }
+    // redirect to this books details page
       res.redirect(`/books/details${req.body.bookKey}`)
 })
-
-//DELETE -- delete tags from books
-router.delete('/details', async (req,res) => {
-    try{
-        if (!res.locals.user){
-            //if the user is not authorized, ask them to log in
-            res.render('index.ejs', {msg: 'Please log in to continue'})
-            return //end the route here
-        }
-        // console.log(req.body,'😭😭😭')
-        const foundBook = await db.book.findOne({
-            where: {
-                id:req.body.bookId,
-                userId: res.locals.user.dataValues.id
-            }
-            })
-        const foundTag = await db.tag.findOne({
-            where: {
-                id:req.body.tagId,
-                userId: res.locals.user.dataValues.id
-            }
-        })
-        foundBook.removeTag(foundTag)
-        res.redirect(`/books/details${req.body.bookKey}`)
-        // console.log(foundOrCreatedTag)
-    }catch(err){
-        console.warn('🔥🔥🔥🔥🔥🔥', err)
-    }
-})
-
 
 module.exports = router

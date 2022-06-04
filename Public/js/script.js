@@ -15,6 +15,7 @@ const navBarLogin = document.getElementById('navBarLogin')
 // const modal = document.getElementById('editTagsModal')
 // const editTagsButton = document.getElementById('edit-tags-button')
 
+// what happens when dm is enabled
 const enableDarkMode = () => {
   navBarBrand.style.color = "#ffc300";
   navBarLogout.style.color = "#ffc300";
@@ -35,6 +36,7 @@ const enableDarkMode = () => {
   document.getElementById("dark-mode").checked = true
 }
 
+// what happens when dm is disabled
 const disableDarkMode = () => {
   navBarBrand.style.color = "rgba(0, 0, 0, 0.9)";
   navBarLogout.style.color = "rgba(0, 0, 0, 0.9)";
@@ -56,6 +58,7 @@ if(darkMode === "enabled"){
   enableDarkMode()
 }
 
+// what happens when the dm switch is clicked
 darkModeSwitch.addEventListener('click', ()=>{
   darkMode = localStorage.getItem("darkMode")
   if(darkMode !== "enabled"){

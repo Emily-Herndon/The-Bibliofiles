@@ -5,33 +5,36 @@
 #navBarBrand{
     font-family: 'Homemade Apple', cursive;
 }
+/* applies font to main & navbar */
 main{
     font-family: 'Special Elite', serif;
 }
 body{
-    --accent-color: grey;
     --background-color: white;
     --text-color: black;
     background-color: var(--background-color);
     color: var(--text-color);
 }
 body.dark{
-    --accent-color: rgb(42, 39, 84);
     --background-color: #001d3d;
     --text-color: #ffc300;
 }
 .navbar{
     background-color: rgb(246, 247, 249);
 }
+/* applies font to navbar except brand & dark mode button */
 .myNavStuff{
-    font-family: 'Special Elite', cursive;
+    font-family: 'Special Elite', serif;
 }
+/* makes links the same color as the rest of the text */
 a{
     color: var(--text-color);
 }
+/* centers things vertically */
 .my-flex{
     height: 80vh;
 }
+/* border around each saved book/tag/remove-button group on profile page */
 .thingy{
     border: 1px solid #fb8500;
 }
@@ -84,13 +87,13 @@ input[type="checkbox"].toggle:hover + label::after{
 }
 /* changes background color when switch is to the right */
 input[type="checkbox"].toggle:checked + label::before {
-    background-color: darkgray;
-    color: darkgray;
+    background-color: #002752;
+    color: #002752;
 }
 /* moves switch to the right and changes its color */
 input[type="checkbox"].toggle:checked + label::after {
     transform: translateX(100%);
-    background-color: black;
+    background-color: #001429;
 }
 /* when switch is in right position it slides slightly to the left when hovered over */
 input[type="checkbox"].toggle:checked:hover + label::after {

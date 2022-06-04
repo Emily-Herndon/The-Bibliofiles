@@ -58,6 +58,7 @@ router.get('/profile', async (req, res) => {
             res.render('index.ejs', {msg: 'Please log in to continue'})
             return //end the route here
         }
+        // finds all books associated w/current user & includes the tag table
         const savedBooks = await db.book.findAll({
             where:{
                 userId: res.locals.user.dataValues.id
@@ -80,16 +81,20 @@ router.post('/profile', async (req, res) => {
         res.render('index.ejs', {msg: 'Please log in to continue'})
         return //end the route here
     }
+    // check if book with this id & association w/current user exists
+    // if not create it
         await db.book.findOrCreate({
-            where:{bookid: req.body.bookid },
+            where:{
+                bookid: req.body.bookid,
+                userId: req.body.userId 
+            },
             defaults: {
             title: req.body.title,
             author: req.body.author,
-            userId: req.body.userId,
             book_cover_url: req.body.books_cover_url
             }
         })
-        res.redirect('/users/profile')
+        res.redirect(`/books/details${req.body.bookid}`)
     }catch(err){
         console.warn('🔥🔥🔥🔥🔥🔥',err)
     }
@@ -103,13 +108,15 @@ router.delete('/profile', async (req,res) => {
             res.render('index.ejs', {msg: 'Please log in to continue'})
             return //end the route here
         }
-        console.log("😭😭😭😭😭😭😭😭😭",req.body.id)
+        // console.log("😭😭😭😭😭😭😭😭😭",req.body.id)
+        // find book with specific id associated w/current user
         const bookNoMo = await db.book.findOne({
             where:{
                 id: req.body.id,
                 userId: res.locals.user.dataValues.id
             }
         })
+        // delete specific book from table
         await bookNoMo.destroy()
         res.redirect('/users/profile')
     } catch(err) {
