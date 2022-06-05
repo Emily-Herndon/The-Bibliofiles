@@ -1,7 +1,7 @@
 # The Bibliofiles
 ---
 
-## Are you an avid reader? Do you have trouble keeping track of the books you've read? Find a book you want to read later and need a central place to write it down? Then *The Bibliofiles* is for you!
+## Are you an avid reader? Do you have trouble keeping track of the books you've read? Find a book you want to read later and need a central place to write it down? Then [*The Bibliofiles*](https://the-bibliofiles.herokuapp.com/) is for you!
 
 ---
 
@@ -10,6 +10,21 @@
 
 
 ### [Search Lord of the Rings](http://openlibrary.org/search.json?title=the+lord+of+the+rings)
+
+---
+
+## Technologies Used
+- EJS
+- Sequelize
+- Bootstrap v5.2
+- HTML 5
+- CSS
+- Javascript
+- Axios (to fetch the api)
+- Method-Overide (for full CRUD routes)
+- Bcrypt (password hashing)
+- CryptoJS (for userid encryption)
+
 
 ---
 
@@ -91,3 +106,14 @@
 - [ ] Users able to create public comments on books
 - [ ] Users able to publicly rate books
 - [ ] Users able to see how many saves a book has
+
+---
+
+### Sources Used
+- [Kevin Powell](https://www.youtube.com/watch?v=wodWDIdV9BY&ab_channel=KevinPowell)
+- [Web Dev Simplified](https://www.youtube.com/watch?v=N8BZvfRD_eU&ab_channel=WebDevSimplified)
+- [Web Dev Simplified](https://www.youtube.com/watch?v=RiWxhm5ZdFM&ab_channel=WebDevSimplified)
+- [Sequelize Docs](https://sequelize.org/docs/v6/core-concepts/model-querying-basics/)
+- [Bootstrap Docs](https://getbootstrap.com/docs/5.2/components/modal/#accessibility)
+- [Coolors](https://coolors.co/palette/000814-001d3d-003566-ffc300-ffd60a)
+- [W3Schools](https://www.w3schools.com/)

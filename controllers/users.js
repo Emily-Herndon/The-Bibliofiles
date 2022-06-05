@@ -4,7 +4,6 @@ const db = require('../models')
 const cryptoJS = require('crypto-js')
 const bcrypt = require('bcryptjs')
 const methodOverride = require('method-override')
-const { user } = require('pg/lib/defaults')
 
 //  GET /user/new -- renders a form to create a new user
 router.get('/new', (req, res) => {
