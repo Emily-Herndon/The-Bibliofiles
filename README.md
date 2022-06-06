@@ -1,7 +1,7 @@
 # The Bibliofiles
 ---
 
-## Are you an avid reader? Do you have trouble keeping track of the books you've read? Find a book you want to read later and need a central place to write it down? Then [*The Bibliofiles*](https://the-bibliofiles.herokuapp.com/) is for you!
+## Are you an avid reader? Do you have trouble keeping track of the books you've read? Find a book you want to read later and need a central place to write it down? Then *The Bibliofiles* is for you! [Try it here!](https://the-bibliofiles.herokuapp.com/)
 
 ---
 
@@ -24,6 +24,18 @@
 - Method-Overide (for full CRUD routes)
 - Bcrypt (password hashing)
 - CryptoJS (for userid encryption)
+
+---
+
+## Installation Instructions
+
+- Fork Repo
+- Git clone
+- npm i
+- create .env file
+- in .env file set ENC_KEY to value of your choosing
+- echo .env >> .gitignore
+- echo node_modules >> .gitignore
 
 
 ---
