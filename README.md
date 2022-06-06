@@ -54,25 +54,25 @@
 
 ---
 
-## User View Wireframes
+## User View Screenshots
 
 ### Sign Up
-![signup](./images/Sign-Up%401x.png)
+![signup](./images/sign-up-page.png)
 
 ### Login
-![login](./images/Login%401x.png)
+![login](./images/login-page.png)
 
 ### User Profile
-![user profile](./images/User-Profile%401x.png)
+![user profile](./images/profile-page.png)
 
 ### Search Results
-![search results](./images/Search%20Results%401x.png)
+![search results](./images/search-results-page.png)
 
 ### Book Details
-![book details](./images/Book%20Details%401x.png)
+![book details](./images/book-details-page.png)
 
-### Save Book
-![save book](./images/Save%20Book%20Modal%401x.png)
+### Edit Tags
+![save book](./images/edit-tags-modal.png)
 
 ---
 
@@ -103,9 +103,16 @@
 ## Stretch
 - [X] Dark Mode 🌗
 - [X] Edit tag form is modal
-- [ ] Users able to create public comments on books
-- [ ] Users able to publicly rate books
-- [ ] Users able to see how many saves a book has
+- [ ] User able to delete unwanted tags
+- [ ] User able to add a tag to multiple books at a time
+- [ ] Very mobile friendly
+
+
+---
+
+## Reflection
+
+This project was somehow both harder and easier than I anticipated. I learned a lot about table relationships and ERDs. I learned how to make a toggle switch from scratch using CSS and linking it with JavaScript to perform a specific task. (In this case, dark mode.) I want to go back and do the leftover stretch goals in the future to improve the user experience further.
 
 ---
 
