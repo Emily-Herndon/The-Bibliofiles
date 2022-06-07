@@ -93,7 +93,7 @@ router.post('/profile', async (req, res) => {
             book_cover_url: req.body.books_cover_url
             }
         })
-        res.redirect(`/books/details${req.body.bookid}`)
+        res.redirect(`/books${req.body.bookid}`)
     }catch(err){
         console.warn('🔥🔥🔥🔥🔥🔥',err)
     }

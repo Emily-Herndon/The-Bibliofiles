@@ -2,7 +2,7 @@
 <div id="results-page" class="container d-flex flex-column justify-content-center align-items-center">
   <% results.forEach(book => { %>
       <div>
-        <a href="/books/details<%=book.key%>"> <h3><%= book.title %></h3></a>
+        <a href="/books<%=book.key%>"> <h3><%= book.title %></h3></a>
       </div>
     <% }) %>
 </div>

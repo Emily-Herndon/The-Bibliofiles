@@ -29,13 +29,13 @@
 
 ## Installation Instructions
 
-- Fork Repo
-- Git clone
-- npm i
-- create .env file
-- in .env file set ENC_KEY to value of your choosing
-- echo .env >> .gitignore
-- echo node_modules >> .gitignore
+1. Fork Repo
+1. Git clone
+1. npm i
+1. create .env file
+1. in .env file set ENC_KEY to value of your choosing
+1. echo .env >> .gitignore
+1. echo node_modules >> .gitignore
 
 
 ---

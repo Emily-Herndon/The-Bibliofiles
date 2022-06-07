@@ -10,7 +10,7 @@
         </div>
         <div class="modal-body">
             <div class ="container d-flex flex-column justify-content-center align-items-center">
-                <form class="input-group mb-3 flex-column" method="POST" action="/books/details">
+                <form class="input-group mb-3 flex-column" method="POST" action="/books/works/:id">
                     <div class="input-group-text">
                         <input hidden value="<%= details.key %>" name="bookKey"/>
                         <input hidden value="<%= savedBook.id %>" name="bookId"/>
@@ -26,7 +26,7 @@
                         </div>
                     </div>
                 </form>
-                <form method="POST" action="/books/details/?_method=PUT" class="d-flex flex-column w-100 form-control">
+                <form method="POST" action="/books/works/:id/?_method=PUT" class="d-flex flex-column w-100 form-control">
                     <input hidden value="<%= details.key %>" name="bookKey"/>
                     <input hidden value="<%= savedBook.id %>" name="bookId"/>
                     <input hidden value="<%= user.id %> " name="userId"/>

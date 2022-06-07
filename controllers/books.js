@@ -28,7 +28,7 @@ router.get('/results', async (req, res) => {
 })
 
 // GET -- shows detailed info on specific book and allows it to be saved & tagged
-router.get('/details/works/:id', async (req, res) => {
+router.get('/works/:id', async (req, res) => {
     // console.log(req.params.id, '😭')
     try{
         if (!res.locals.user){
@@ -85,7 +85,7 @@ router.get('/details/works/:id', async (req, res) => {
 })
 
 // POST -- allows user to create and add tags to saved books
-router.post('/details', async (req,res) => {
+router.post('/works/:id', async (req,res) => {
     try{
         if (!res.locals.user){
             //if the user is not authorized, ask them to log in
@@ -105,7 +105,7 @@ router.post('/details', async (req,res) => {
         })
         // add the tag to the book through the join table
         foundBook.addTag(foundOrCreatedTag)
-        res.redirect(`/books/details${req.body.bookKey}`)
+        res.redirect(`/books${req.body.bookKey}`)
         // console.log(foundOrCreatedTag)
     }catch(err){
         console.warn('🔥🔥🔥🔥🔥🔥', err)
@@ -113,7 +113,7 @@ router.post('/details', async (req,res) => {
 })
 
 // PUT -- edit tags on a book
-router.put('/details', async (req,res) => {
+router.put('/works/:id', async (req,res) => {
     try{
         if (!res.locals.user){
             //if the user is not authorized, ask them to log in
@@ -150,7 +150,7 @@ router.put('/details', async (req,res) => {
         console.warn('🔥🔥🔥🔥🔥🔥', err)
     }
     // redirect to this books details page
-      res.redirect(`/books/details${req.body.bookKey}`)
+      res.redirect(`/books${req.body.bookKey}`)
 })
 
 module.exports = router
