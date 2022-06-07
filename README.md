@@ -60,9 +60,9 @@
 | POST | /users/profile | Create \(Create\) | saves a book to users profile from details page |
 | DELETE | /users/profile | Destroy \(Delete\) | deletes the specific book from the user's saved books |
 | GET | /books/results | Show \(Read\) | renders results from search |
-| GET | /books/details/works/:id | Show \(Read\) | renders detailed info on specific book & allows it to be favorited|
-| POST | /books/details | Create \(Create\) | allows users to create a new tag and apply to specific book|
-| PUT | /books/details | Update \(Update\) | updates the user's tags on a specific book |
+| GET | /books/works/:id | Show \(Read\) | renders detailed info on specific book & allows it to be favorited|
+| POST | /books/works/:id | Create \(Create\) | allows users to create a new tag and apply to specific book|
+| PUT | /books/works/:id | Update \(Update\) | updates the user's tags on a specific book |
 
 ---
 
