@@ -31,6 +31,7 @@
 
 1. Fork Repo
 1. Git clone
+1. Install Postgres from [here](https://www.postgresql.org/download/macosx/)
 1. npm i
 1. create .env file
 1. in .env file set ENC_KEY to value of your choosing
